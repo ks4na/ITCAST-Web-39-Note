@@ -1,0 +1,63 @@
+{
+	"title": "传智播客WEB39期笔记",
+	"author": "_yuusha",
+	"language": "zh-hans",
+	"gitbook": ">=3.0.0",
+	"styles": {
+		"website": "styles/website.css",
+		"ebook": "styles/ebook.css",
+		"pdf": "styles/pdf.css",
+		"mobi": "styles/mobi.css",
+		"epub": "styles/epub.css"
+	},
+	"plugins":[
+		"-lunr",
+		"-search",
+		"search-plus",
+		"splitter",
+		"-sharing",
+		"sharing-plus",
+		"tbfed-pagefooter",
+		"anchor-navigation-ex",
+		"github-buttons",
+		"alerts",
+		"edit-link"
+	],
+	"pluginsConfig": {
+		"fontsettings": {
+			"theme": "white",
+			"family": "sans",
+			"size": 2
+		},
+		"sharing": {
+			"qq": true,
+			"weibo": true,
+			"qzone": true,
+			"google": true,
+			"all": ["facebook", "google", "twitter", "weibo", "qq", "qzone"]
+		},
+		"tbfed-pagefooter": {
+			"copyright": "Copyright &copy; yumecoder.top 2018",
+			"modify_label": "最后修改时间：",
+			"modify_format": "YYYY-MM-DD HH:mm:ss"
+		},
+		"anchor-navigation-ex": {
+			"multipleH1": false,
+			"showLevel" : false
+        },
+		"github-buttons": {
+			"buttons": [{
+				"user": "ks4na",
+				"repo": "gitbook-usage",
+				"type": "star",
+				"size": "small",
+				"count": true
+		    }]
+		},
+		"edit-link": {
+            "base": "https://github.com/ks4na/gitbook-usage/edit/master",
+            "label": "Edit This Page"
+        }
+	}
+	
+}

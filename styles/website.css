@@ -1,0 +1,28 @@
+/*修改左侧sidebar菜单鼠标悬浮效果*/
+.book-summary ul.summary li a:hover{
+	color: #008cff;
+	background: 0 0;
+	text-decoration: none;
+}
+/*修改左侧sidebar一级导航的颜色*/
+.book-summary ul.summary li span{
+	color: #939da3;
+}
+.book-summary ul.summary li span:hover{
+	cursor: default;
+}
+/* 版本选择下拉框样式修改*/
+.versions-select select {
+    height: 2em;
+    line-height: 2em;
+    border-radius: 4px;
+    background: #efefef;
+}
+/*ace插件的代码字体大小设置*/
+.aceCode {
+  font-size: 14px !important;
+}
+/*设置下拉菜单的层级高于锚点*/
+.dropdown-menu.open{
+	z-index: 1000;
+}
