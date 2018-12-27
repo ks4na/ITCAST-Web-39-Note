@@ -6,13 +6,13 @@
 
 - 各个浏览器对应的内核
 
-- | 浏览器  | 内核                                   |
-  | ------- | -------------------------------------- |
-  | IE/Edge | Trident/EdgeHTML                       |
-  | firefox | Gecko                                  |
-  | chrome  | Chromium/blink（算是webkit的一个分支） |
-  | safari  | webkit                                 |
-  | opera   | blink                                  |
+| 浏览器  | 内核                                   |
+| ------- | -------------------------------------- |
+| IE/Edge | Trident/EdgeHTML                       |
+| firefox | Gecko                                  |
+| chrome  | Chromium/blink（算是webkit的一个分支） |
+| safari  | webkit                                |
+| opera   | blink                                  |
 
 ### 2. Web标准
 
@@ -52,10 +52,10 @@
 
 | 标签                       | 显示效果                          |
 | -------------------------- | --------------------------------- |
-| <b></b>/ <strong></strong> | 加粗（推荐使用<strong></strong>） |
-| <i></i>/<em></em>          | 斜体（推荐使用<em></em>）         |
-| <s></s>/<del></del>        | 删除线（推荐使用<del></del>)      |
-| <u></u>/<ins></ins>        | 下划线（推荐使用<ins></ins>）     |
+| `<b></b>`/ `<strong></strong>` | 加粗（推荐使用`<strong></strong>`） |
+| `<i></i>`/`<em></em>`          | 斜体（推荐使用`<em></em>`）         |
+| `<s></s>`/`<del></del>`      | 删除线（推荐使用`<del></del>`)      |
+| `<u></u>`/`<ins></ins>`        | 下划线（推荐使用`<ins></ins>`）     |
 
 ### 6. 图像标签
 
