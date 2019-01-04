@@ -25,7 +25,7 @@ textarea {
 
 ## vertical-align垂直居中
 
-vertical-align 只能设置行内、行内块元素的居中对齐（例如 `img`、`textarea`），**对块级元素没有效果**。
+vertical-align 只能设置行内、行内块元素的垂直居中对齐（例如 `img`、`textarea`），**对块级元素没有效果**。
 
 对齐方式：`vertical-align: baseline | top | middle | bottom ;`
 
@@ -50,11 +50,11 @@ vertical-align 只能设置行内、行内块元素的居中对齐（例如 `img
 
 **1. word-break**
 
-适用于英文单词，指定单词断开方式
+适用于英文单词，指定换行时单词断开方式
 
 - normal - 【默认】使用浏览器默认规则
 
-- break-all - 可以从单词中间断开
+- break-all - 可以从单词中间断开换行
 - keep-all - 不允许拆开单词，只能在半角空格或者连字符处换行
 
 **2. word-wrap**

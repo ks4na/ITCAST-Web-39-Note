@@ -114,6 +114,8 @@ p {
 }
 ~~~
 
+> 可以同时设置多个文字阴影，见最后的示例。
+
 ## 样式表
 
 外部样式表写法：
@@ -129,14 +131,14 @@ p {
 - 独占一行
 - 宽度默认100%
 - 高度、行高、外边距、内边距可控制
-- 可以容纳块级元素和行内元素【除了p、h1、dt等之类的文字型块级元素】
+- 可以容纳任何元素【p、h1、dt等之类的文字型块级元素不符合】
 
 **行内元素**
 
 - 和相邻行内元素处于一行上
 - 宽、高无效，但水平方向padding和margin可以设置 
 - 默认宽度为元素本身内容的宽度
-- 只能容纳行内元素和文本【除了a 元素】
+- 只能容纳行内元素和文本【a 元素不符合】
 
 **行内块元素（inline-block）**
 
@@ -169,7 +171,7 @@ p {
 
 > 伪元素可以加在伪类后面，类似 `div:hover::before` 这样的写法是有效的。
 
-## CSS书写规范
+## CSS书写规范【非强制】
 
 - 选择器与 `{` 之间必须包含空格。 示例： `.class {}`
 
@@ -189,7 +191,7 @@ p {
 
 **背景图片**
 
- `background-image: url(images/demo.jpg)` 
+ `background-image: url("images/demo.jpg")` 
 
 **背景重复**
 
@@ -199,7 +201,7 @@ p {
 
  `background-position` ，值的写法：
 
-- length - 如 `background-position: 20px 10px;` 代表背景图片距离上边10px，左边20px；
+- length - 如 `background-position: 20px 10px;` 代表背景图片**距离左边20px,上边10px**；
 - position - 如 `background-position: right bottom;` 代表背景图片位于右下位置；
 - 混搭length和position - 如 `background-position: center 20px;` 代表背景图片水平居中，垂直方向距离顶部20px。
 
@@ -234,7 +236,7 @@ body {
 
 `background-size`  ,可选值：
 
-- length - 如 `background-size: 400px 300px;` ,【最好只设置一个值，防止失真】
+- length - 单位px或%，如 `background-size: 400px 300px;` ,【最好只设置一个值，防止失真】
 - cover - 保证覆盖整个容器
 - contain - 保证整个背景图片完全显示
 

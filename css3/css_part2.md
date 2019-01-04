@@ -58,7 +58,7 @@ a:hover     --->    0,0,1,1
 
  ![margin塌陷2](assets/margin塌陷2.png)
 
-解决方法：避免子元素垂直方向margin，用父元素padding代替；或者父元素设置 `overflow：hidden` 。
+解决方法：避免子元素垂直方向margin，用父元素padding代替；或者父元素设置 `overflow：hidden`  ，原理参见css_BFC。
 
 ## padding不会撑开盒子的情况（重要）
 
@@ -123,7 +123,7 @@ float 可选参数： none(默认)、left、right。
 
  ![float不超过padding](assets/浮动不超过padding.png)
 
-**浮动的元素如果没有宽度，会转换成行内块模式，宽度由内容宽度决定**
+**浮动的元素如果没有宽度，宽度由内容宽度决定**
 
 #### 清除浮动
 本质：解决父级元素由于子级元素浮动导致的高度为0的问题。
@@ -153,7 +153,7 @@ float 可选参数： none(默认)、left、right。
   .clearfix:after {
       clear: both;
   }
-  .clearfix{ /* ie6,7识别 */
+  .clearfix { /* ie6,7识别 */
       *zoom: 1;
   }
   ```
@@ -174,15 +174,15 @@ position, 属性值：
 >
 > 绝对定位（absolute）、固定定位（fixed）脱标。
 
-**绝对定位的元素不管父元素的padding，只以左上角为基准。**
+**绝对定位的元素如果不指定top/left等偏移量时，也不会压住父元素的padding；但是如果指定了top/left等偏移量，则以父元素border内的左上角为基准。**
 
-**绝对定位和固定定位导致元素脱标，跟浮动一样，也会转换模式为行内块元素，宽度由内容宽度决定**
+**绝对定位和固定定位导致元素脱标，跟浮动一样，不指定宽度时，宽度由内容宽度决定**
 
 > 总结： 浮动、绝对定位、固定定位的**行内元素**无需手动转换显示模式 `display`，可以直接给宽高。
 
-## 可见性visibility
+## visibility 可见性
 
-visibility, 控制元素是否可见，会保留元素在文档流中的位置。属性值：
+visibility, 控制元素是否可见，会**保留元素在文档流中的位置**。属性值：
 
 - visible  - 可见
 - hidden - 隐藏
