@@ -6,17 +6,17 @@ BFC(block formatting context)： 块级格式化上下文。
 
 是一个独立的渲染区域，其内部元素的布局与外部毫不相关。
 
-## 哪些元素具有BFC条件
+## 哪些元素会具有BFC的条件
 
-display属性为block、table、list-item的元素，具有产生BFC的条件。
+display 属性为 block, list-item, table 的元素，会产生BFC。
 
 ## 如何触发BFC
 
-有如下条件之一，即可触发BFC：
+块级元素有如下条件之一，即可触发BFC：
 
 - float属性不为none
 - position为absolute或者fixed
-- display为inline-block，table-cell，table-caption，flex，inline-flex
+- display为inline-block, table-cell, table-caption, flex, inline-flex
 - overflow不为visible
 
 ## BFC的特性和应用
