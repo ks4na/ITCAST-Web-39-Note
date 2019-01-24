@@ -6,7 +6,7 @@
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 ```
 
-快捷输入：`link:favicon`
+emmet快捷输入：`link:favicon`
 
 ## 网站优化三大标签
 
