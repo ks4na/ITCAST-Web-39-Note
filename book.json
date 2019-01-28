@@ -48,14 +48,14 @@
 		"github-buttons": {
 			"buttons": [{
 				"user": "ks4na",
-				"repo": "gitbook-usage",
+				"repo": "ITCAST-Web-39-Note",
 				"type": "star",
 				"size": "small",
 				"count": true
 		    }]
 		},
 		"edit-link": {
-            "base": "https://github.com/ks4na/gitbook-usage/edit/master",
+            "base": "https://github.com/ks4na/ITCAST-Web-39-Note/edit/master",
             "label": "Edit This Page"
         }
 	}
