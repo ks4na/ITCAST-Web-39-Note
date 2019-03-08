@@ -26,4 +26,5 @@
   - [对象](javascript/7.对象.md)
   - [内置对象](javascript/8.内置对象.md)
   - [数组对象](javascript/9.数组对象.md)
+  - [字符串常用方法](javascript/10.字符串常用方法.md)
 
