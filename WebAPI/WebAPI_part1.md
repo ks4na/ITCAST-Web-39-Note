@@ -74,7 +74,7 @@ var boxes = document.querySelectorAll('.box')
 
 `getElementsByTagName()` 和 `getElementsByClassName()` 方法是**即时更新**的：
 
-![1549594342003](media\%5CUsers%5Cks4na%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1549594342003.png)
+![即时更新](media/jishigengxin.png)
 
 打印结果为：0  3
 
@@ -186,7 +186,7 @@ var boxes = document.querySelectorAll('.box')
    </script>
    ```
 
-   ### 动态创建元素
+### 动态创建元素
 
 设置**innerHTML属性**的值时，如果大量的字符串进行拼接，不能直接使用 `+=` 的操作（因为由于字符串的不可变性，会创建很多次字符串对象, 有性能问题），而推荐使用数组存放每个独立的项，最后使用 `join('')` 进行拼接。
 
