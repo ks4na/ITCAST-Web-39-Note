@@ -105,7 +105,7 @@ $ele.prop('checked', true)  // 设置checked属性
 
 | jQuery方法              | DOM方法                                                      | 说明                                     |
 | ----------------------- | ------------------------------------------------------------ | ---------------------------------------- |
-| `$ele.width()`          | `ele.style.width || parseInt(getComputedStyle(ele).width)`   | 元素的 width（不包括padding）            |
+| `$ele.width()`          | `ele.style.width`,<br />`parseInt(getComputedStyle(ele).width)` | 元素的 width（不包括padding）            |
 | `$ele.innerWidth()`     | `ele.clientWidth`                                            | 元素的 width + padding                   |
 | `$ele.outerWidth()`     | `ele.offsetWidth`                                            | 元素的 width + padding + border          |
 | `$ele.outerWidth(true)` | `ele.offsetWidth + parseInt(getComputedStyle(ele).margin)*2` | 元素的 width + padding + border + margin |
