@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>像素鸟案例</title>
+  <style>
+    #bg {
+      border: 10px solid red;
+      width: 600px;
+      height: 400px;
+      background: url(images/sky.png);
+      background-size: 600px 400px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #bird {
+      background: url(images/birds.png) no-repeat -8px -11px;
+      position: absolute;
+    }
+
+    #menu {
+      position: absolute;
+      background-color: #000;
+      opacity: .7;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      z-index: 999;
+    }
+
+    #start {
+      margin-left: -130px;
+      background: url(images/start.png) no-repeat;
+    }
+    #restart {
+      margin-left: 30px;
+      background: url(images/restart.png) no-repeat;
+    }
+    #start,
+    #restart {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      top: 50%;
+      left: 50%;
+      margin-top: -50px;
+      background-size: 100px 100px;
+      opacity: .5;
+    }
+
+    #start:hover,
+    #restart:hover {
+      opacity: 1;
+    }
+
+    #menu.gameover #start {
+      display: none;
+    }
+    #menu.gameover #restart {
+      margin-left: -50px;
+    }
+
+    #menu.unplayed #start {
+      margin-left: -50px;
+    }
+    #menu.unplayed #restart {
+      display: none;
+    }
+
+    
+  </style>
+</head>
+
+<body>
+  <div id="bg">
+    <div id="bird"></div>
+    <div id="menu" class="unplayed">
+      <div id="start"></div>
+      <div id="restart"></div>
+    </div>
+  </div>
+
+  <script src="pipe.js"></script>
+  <script>
+    var bgEle = document.querySelector('#bg')
+    var birdEle = document.querySelector('#bird')
+    var pipesEle = document.querySelectorAll('.pipe')
+    var menu = document.querySelector('#menu')
+    var startBtn = document.querySelector('#start')
+    var restartBtn = document.querySelector('#restart')
+
+    var settings = {
+      freshFreq: 50,
+      clientWidth: 600,
+      clientHeight: 400,
+      sensibility: 10,
+    }
+
+    var gameStatus = {
+      mainProcess: null,
+      isPlaying: false,
+      isGameOver: false,
+      isPaused: false,
+      createPipeFlag: 0
+    }
+
+    var bird = {
+      size: {
+        width: 34,
+        height: 24,
+      },
+      speed: 5,
+      posX: 0,
+      posY: 0
+    }
+
+    var bg = {
+      posX: 0,
+      posY: 0
+    }
+
+    var pipeList = []
+
+    function start(){
+
+      gameStatus.mainProcess = setInterval(function () {
+        if (shouldContinue()) {
+
+          // 如果没有绑定键盘事件和鼠标单击事件,则绑定
+          if(!bgEle.onclick){
+            bgEle.onclick = fly
+          }
+          if(!window.onkeydown){
+            window.onkeydown = function (e) {
+              if (e.keyCode === 32) {
+                fly()
+              }
+              if(e.keyCode === 27){
+                gameStatus.isPaused = true
+                renderUI()
+              }
+            }
+          }
+
+
+          // 调整背景位置 和柱子的位置
+          bg.posX -= bird.speed
+          for(var i = 0; i < pipeList.length; i ++){
+            var item = pipeList[i]
+            item.move(bird.speed)
+          }
+          // 调整小鸟位置
+          bird.posY += bird.speed
+          if (bird.posY + bird.size.height > settings.clientHeight) {
+            bird.posY = settings.clientHeight - bird.size.height
+          } else if (bird.posY < 0) {
+            bird.posY = 0
+          }
+
+          // 更新柱子的信息
+          updatePipesStatus()
+
+          // 更新游戏状态信息
+          updateGameStatus()
+
+          // 更新UI
+          renderUI()
+        } else {
+          clearInterval(gameStatus.mainProcess)
+          // 移除鼠标单击和键盘事件
+          bgEle.onclick = null
+          window.onkeydown = null
+        }
+
+      }, settings.freshFreq)
+    }
+
+    function initGame(isPlaying) {
+      gameStatus = {
+        mainProcess: null,
+        isPlaying: isPlaying,
+        isGameOver: false,
+        isPaused: false,
+        createPipeFlag: 0
+      }
+
+      bird = {
+        size: {
+          width: 34,
+          height: 24,
+        },
+        speed: 5,
+        posX: 100,
+        posY: settings.clientHeight / 2,
+      }
+
+      bg = {
+        posX: 0,
+        posY: 0
+      }
+
+      // 小鸟的状态
+      birdEle.style.top = bird.posY + 'px'
+      birdEle.style.left = bird.posX + 'px'
+      birdEle.style.width = bird.size.width + 'px'
+      birdEle.style.height = bird.size.height + 'px'
+
+      // 背景图状态
+      bgEle.style.width = settings.clientWidth + 'px'
+      bgEle.style.height = settings.clientHeight + 'px'
+      bgEle.style.backgroundSize = settings.clientWidth + 'px ' + settings.clientHeight + 'px'
+      bgEle.style.left = bg.posX + 'px'
+      bgEle.style.top = bg.posY + 'px'
+
+      // 移除所有柱子
+      pipeList = []
+
+      var pipesEle = document.querySelectorAll('.pipe')
+      for(var i = 0; i < pipesEle.length; i++){
+        var item = pipesEle[i]
+        bgEle.removeChild(item)
+      }
+
+    }
+
+    function shouldContinue() {
+      return !gameStatus.isPaused && !gameStatus.isGameOver && gameStatus.isPlaying
+    }
+
+    function renderUI() {
+
+      if(!gameStatus.isPlaying || gameStatus.isPaused || gameStatus.isGameOver){
+        menu.style.display = 'block'
+        if(!gameStatus.isPlaying){
+          menu.classList.add('unplayed')
+        }else if(gameStatus.isGameOver){
+          menu.classList.add('gameover')
+        }
+      }else{
+        menu.style.display = 'none'
+        if(menu.className){
+          menu.className = ''
+        }
+      }
+
+      // 更新背景图位置
+      bgEle.style.backgroundPositionX = bg.posX + 'px'
+      // 更新柱子状态
+      var delArr = []
+      var pipesEle = document.querySelectorAll('.pipe')
+      for(var i = 0; i < pipesEle.length; i ++){
+        var item = pipesEle[i]
+        item.style.left = pipeList[i].posX + 'px'
+        // 如果删除标记为true,则删除
+        if(pipeList[i].shouldDel){
+          delArr.push(i)
+        }
+      }
+      for(var i = 0; i < delArr.length; i ++){
+        pipeList.splice(delArr[i], 1)
+        bgEle.removeChild(pipesEle[delArr[i]])
+      }
+      // 更新小鸟状态
+      birdEle.style.top = bird.posY + 'px'
+
+    }
+
+    function updateGameStatus() {
+      if (bird.posY + bird.size.height >= settings.clientHeight || bird.posY <= 0) {
+        gameStatus.isGameOver = true
+      }
+
+      var birdWidthRange = {
+        min: bird.posX,
+        max: bird.posX + bird.size.width
+      }
+      for(var i = 0; i < pipeList.length; i ++){
+        var item = pipeList[i]
+        var itemWidthRange = {
+          min: item.posX,
+          max: item.posX + item.size.width
+        }
+        if(birdWidthRange.max >= itemWidthRange.min && birdWidthRange.min <= itemWidthRange.max){
+          if(item.type === 0 && bird.posY + bird.size.height >= item.posY){
+            gameStatus.isGameOver = true
+            break
+          }
+          if(item.type === 1 && bird.posY <= item.size.height){
+            gameStatus.isGameOver = true
+            break
+          }
+        }
+      }
+    }
+
+    function updatePipesStatus(){
+      for(var i = 0; i < pipeList.length; i++){
+        var item = pipeList[i]
+        item.checkDel()
+      }
+      gameStatus.createPipeFlag += settings.freshFreq
+      if( gameStatus.createPipeFlag >= parseInt(Math.random() * 1000 + 2000)){
+        createPipe()
+        gameStatus.createPipeFlag = 0
+      }
+    }
+
+    function fly() {
+      console.log('fly')
+      bird.posY -= bird.speed * settings.sensibility
+    }
+
+
+    function createPipe(){
+      var height = parseInt(Math.random() * settings.clientHeight / 4 + settings.clientHeight / 4)
+      var width = parseInt(Math.random() * 20 + 30)
+      var type = parseInt(Math.random() * 2)
+      var posX = settings.clientWidth
+      var pipe = new Pipe(height, width, type, posX)
+
+      pipe.posY = pipe.type === 0 ? settings.clientHeight - pipe.size.height : 0
+      pipeList.push(pipe)
+
+      // 添加到DOM中
+      var pipeEle = document.createElement('div')
+      pipeEle.className = 'pipe'
+      pipeEle.style.position = 'absolute'
+      pipeEle.style.height = pipe.size.height + 'px'
+      pipeEle.style.width = pipe.size.width + 'px'
+      pipeEle.style.left = pipe.posX + 'px'
+      pipeEle.style.top = pipe.posY + 'px'
+      pipeEle.style.overflow = 'hidden'
+      
+      var img = document.createElement('img')
+      img.style.width = '100%'
+      img.src = 'images/pipe' + (pipe.type + 1) + '.png'
+      if(pipe.type === 1){
+        img.style.position = 'absolute'
+        img.style.bottom = 0
+      }
+      pipeEle.appendChild(img)
+
+      bgEle.appendChild(pipeEle)
+      
+    }
+
+
+    startBtn.addEventListener('click', function(){
+      if(!gameStatus.isPlaying){
+        gameStatus.isPlaying = true
+      }else{
+        gameStatus.isPaused = false
+      }
+      start()
+    })
+
+    restartBtn.addEventListener('click', function (){
+      initGame(true)
+      start()
+    })
+
+
+    window.onload = function (){
+      initGame(false)
+      start()
+    }
+  </script>
+</body>
+
+</html>

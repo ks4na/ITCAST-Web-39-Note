@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>轮播图</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .outer {
+      width: 500px;
+      height: 200px;
+      border: 5px solid red;
+      background-color: #fff;
+      overflow: hidden;
+      margin: 100px auto;
+      position: relative;
+    }
+    .inner {
+      list-style: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .inner li {
+      float: left;
+      width: 500px;
+      height: 200px;
+    }
+    .inner li img {
+      width: 100%;
+      height: 100%;
+    }
+    .clearfix::before,
+    .clearfix::after {
+      content: "";
+      display: table;
+    }
+    .clearfix::after {
+      clear: both;
+    }
+    .indicators {
+      list-style: none;
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+    }
+    .indicators li {
+      float: left;
+      width: 24px;
+      height: 24px;
+      margin: 0 5px;
+      line-height: 24px;
+      text-align: center;
+      border: 1px solid gray;
+      background-color: #fff;
+      cursor: pointer;
+    }
+    .indicators li.active {
+      background-color: orange;
+    }
+    .arrows {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      margin-top: -30px;
+    }
+    .outer:hover .arr-l,
+    .outer:hover .arr-r {
+      opacity: .3;
+    }
+    .arrows .arr-l,
+    .arrows .arr-r {
+      width: 35px;
+      height: 60px;
+      background-color: #000;
+      color: #fff;
+      text-decoration: none;
+      font-size: 30px;
+      text-align: center;
+      line-height: 60px;
+      opacity: 0;
+    }
+    .arrows .arr-l:hover,
+    .arrows .arr-r:hover {
+      opacity: .7;
+    }
+    .arrows .arr-l {
+      float: left;
+    }
+    .arrows .arr-r {
+      float: right;
+    }
+  </style>
+</head>
+<body>
+  <div class="outer">
+      <ul class="inner clearfix">
+        <li><img src="images/wf1.jpg" alt=""></li>
+        <li><img src="images/wf2.jpg" alt=""></li>
+        <li><img src="images/wf3.jpg" alt=""></li>
+        <li><img src="images/wf4.jpg" alt=""></li>
+        <li><img src="images/wf5.jpg" alt=""></li>
+      </ul>
+    <div class="arrows">
+      <a href="javascript:void(0);" class="arr-l">&lt;</a>
+      <a href="javascript:void(0);" class="arr-r">&gt;</a>
+    </div>
+  </div>
+
+  <script src="animate.js"></script>
+  <script>
+    var swiper = document.querySelector('.outer')
+    var inner = swiper.querySelector('.inner')
+    var itemsCount = inner.querySelectorAll('li').length
+
+    // 设置inner的宽度为所有图片的宽度之和
+    inner.style.width = itemsCount * swiper.clientWidth + 'px'
+
+    // 添加 序号显示
+    var indicator = document.createElement('ol')
+    indicator.className = 'indicators'
+    for(var i = 0; i < itemsCount; i ++){
+      var li = document.createElement('li')
+      if(i === 0) {
+        li.className = 'active'
+      }
+      li.innerText = i + 1
+      indicator.appendChild(li)
+    }
+    swiper.appendChild(indicator)
+
+    // 序号按钮点击事件，事件委托给父元素indicator
+    indicator.onclick = function (e){
+
+      if(e.target.nodeName === 'LI'){
+
+        // 如果正处于冗余的第一张的位置，则将位置恢复成真正第一张的位置
+        if(Math.abs(parseInt(inner.style.left)) === itemsCount * swiper.clientWidth){
+          inner.style.left = 0 + 'px'
+        }
+
+        // 获取点击之前所展示的图片序号值
+        var lastNodeNum
+        for(var i = 0; i < this.children.length; i ++){
+          if(this.children[i].classList.contains('active')){
+            lastNodeNum = parseInt(this.children[i].innerText)
+          }
+        }
+
+        // 如果之前是第一张，现在点击最后一张，并且是点击箭头操作而不是点击序号，则将位置移动到冗余的第一张处
+        if(lastNodeNum === 1 && parseInt(e.target.innerText) === itemsCount && isArrowOpt){
+          inner.style.left = -itemsCount * swiper.clientWidth + 'px'
+        }
+
+        var index = lastNodeNum === itemsCount && parseInt(e.target.innerText) === 1 && isArrowOpt ? lastNodeNum : e.target.innerText - 1
+        animate(inner, - index * swiper.clientWidth, 10)
+
+        // 设置当前选中序号的样式
+        for(var i = 0; i < this.children.length; i ++){
+          this.children[i].classList.remove('active')
+        }
+        e.target.classList.add('active')
+
+        isArrowOpt = false
+      }
+    }
+
+    // 左右箭头点击事件
+    var arrLeft = document.querySelector('.arr-l')
+    var arrRight = document.querySelector('.arr-r')
+
+    arrLeft.onclick = function (){
+      isArrowOpt = true
+      var curIndex = indicator.querySelector('.active').innerText - 1
+      var nextIndex = (curIndex -1 + itemsCount) % itemsCount
+      indicator.children[nextIndex].click()
+    }
+
+    arrRight.onclick = function (){
+      isArrowOpt = true
+      var curIndex = indicator.querySelector('.active').innerText - 1
+      var nextIndex = (curIndex + 1 + itemsCount) % itemsCount
+      indicator.children[nextIndex].click()
+    }
+
+
+    // 改造代码以实现无缝滚动
+    var copyLi = inner.querySelector('li').cloneNode(true)
+    inner.appendChild(copyLi)
+    inner.style.width = inner.querySelectorAll('li').length * swiper.clientWidth + 'px'
+
+
+    var isArrowOpt = false  // 用于标记是否是点击箭头触发的事件
+
+    // 自动播放
+    var timerId = setInterval(function (){
+      arrRight.click()
+    }, 2500)
+
+    swiper.onmouseenter = function (){
+      clearInterval(timerId)
+    }
+    swiper.onmouseleave = function (){
+      timerId = setInterval(function (){
+        arrRight.click()
+      }, 2500)
+    }
+
+  </script>
+</body>
+</html>

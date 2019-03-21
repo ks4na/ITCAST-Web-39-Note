@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>飞机大战-案例</title>
+  <style>
+  </style>
+</head>
+<body>
+
+  <script>
+    var body = document.querySelector('body')
+
+    var planeFlight = new PlaneFlight()
+    planeFlight.initGame()
+
+    function PlaneFlight(freshFreq, createFoeFreq, createBulletFreq){
+      this.isGameOver = false
+      this.isRunning = false
+      this.timerId = null
+      this.freshFreq = freshFreq || 500
+      this.createFoeFreq = createFoeFreq || 1000
+      this.createFoeCountFlag = 0
+      this.createBulletFreq = createBulletFreq || 1000
+      this.createBulletCountFlag = 0
+      this.foeList = []
+      this.bulletList = []
+      this.playerPlane = null
+      this.clientWidth = 300
+      this.clientHeight = 500
+      this.bgSrc = 'img/bg.png'
+      this.containerEle = null
+      this.playerPlaneEle = null
+
+      this.initGame = function (){
+
+        // 创建战场
+        var container = document.createElement('div')
+        container.style.overflow = 'hidden'
+        container.style.margin = '100px auto'
+        container.style.width = this.clientWidth + 'px'
+        container.style.height = this.clientHeight + 'px'
+        container.style.background = 'url(' + this.bgSrc + ') no-repeat'
+        container.style.backgroundSize = this.clientWidth + 'px ' + this.clientHeight + 'px'
+        container.style.position = 'relative'
+
+        container.onmousemove = function (e){
+          planeFlight.mouseMove(e)
+        }
+
+        container.onmouseenter = function (e){
+          planeFlight.start(e)
+        }
+
+        container.onmouseleave = function (e){
+          planeFlight.pause(e)
+        }
+
+        this.containerEle = container
+        body.appendChild(container)
+
+        // 创建玩家飞机
+        var playerPlane = new Plane()
+        playerPlane.position.x = this.clientWidth / 2 - playerPlane.size.width / 2
+        playerPlane.position.y = this.clientHeight / 10 * 8
+        playerPlane.src = 'img/me.png'
+
+        this.playerPlane = playerPlane
+        var playerPlaneEle = document.createElement('div')
+        playerPlaneEle.style.width = playerPlane.size.width + 'px'
+        playerPlaneEle.style.height = playerPlane.size.height + 'px'
+        playerPlaneEle.style.background = 'url(' + playerPlane.src + ') no-repeat'
+        playerPlaneEle.style.position = 'absolute'
+        playerPlaneEle.style.left = playerPlane.position.x + 'px'
+        playerPlaneEle.style.top = playerPlane.position.y + 'px'
+        playerPlaneEle.style.marginLeft = -playerPlane.size.width / 2 + 'px'
+        playerPlaneEle.style.marginTop = -playerPlane.size.height / 2 + 'px'
+        playerPlaneEle.style.zIndex = '999'
+
+        this.playerPlaneEle = playerPlaneEle
+        container.appendChild(playerPlaneEle)
+
+      }
+
+
+      this.mouseMove = function (e){
+        var posX = e.pageX - this.containerEle.offsetLeft
+        var posY = e.pageY - this.containerEle.offsetTop
+
+        posX = posX > this.playerPlane.size.width / 2 ? posX : this.playerPlane.size.width / 2
+        posX = posX < this.containerEle.clientWidth - this.playerPlane.size.width / 2 ?
+          posX : this.containerEle.clientWidth - this.playerPlane.size.width / 2
+
+        posY = posY > this.playerPlane.size.height / 2 ? posY : this.playerPlane.size.height / 2
+        posY = posY < this.containerEle.clientHeight - this.playerPlane.size.height / 2 ?
+          posY : this.containerEle.clientHeight - this.playerPlane.size.height / 2
+
+
+        this.playerPlane.position.x = posX
+        this.playerPlane.position.y = posY
+
+        this.checkIsGameOver()
+        this.renderUI()
+      }
+
+      this.pause = function (){
+        this.isRunning = false
+      }
+
+      this.start = function (){
+        this.isRunning = true
+        this.run()
+      }
+
+      this.run = function (){
+        var _this = this
+
+        if(_this.shouldContinue() && !_this.containerEle.onmousemove){
+          _this.containerEle.onmousemove = function (e){
+            _this.mouseMove(e)
+          }
+        }
+
+        _this.timerId = setInterval(function (){
+          if(_this.shouldContinue()){
+
+            _this.createFoeCountFlag += _this.freshFreq
+            _this.createBulletCountFlag += _this.freshFreq
+
+            _this.createFoePlane()
+            _this.createBullet()
+
+            _this.updateGameInfo()
+
+            _this.renderUI()
+          }else{
+            clearInterval(_this.timerId)
+            _this.containerEle.onmousemove = null
+          }
+        }, _this.freshFreq)
+      }
+
+      this.createFoePlane = function (){
+        if(this.createFoeCountFlag >= this.createFoeFreq){
+
+          // 重置计数器
+          this.createFoeCountFlag = 0
+
+          // 创建新敌机
+          var newPlane = new Plane()
+          var maxWidth = this.clientWidth - newPlane.size.width
+          newPlane.position.x =  parseInt(Math.random() * maxWidth)
+          this.foeList.push(newPlane)
+
+          var div = document.createElement('div')
+          div.className = 'foe'
+          div.style.width = newPlane.size.width + 'px'
+          div.style.height = newPlane.size.height + 'px'
+          div.style.left = newPlane.position.x + 'px'
+          div.style.top = newPlane.position.y + 'px'
+          div.style.position = 'absolute'
+          div.style.background = 'url(' + newPlane.src + ') no-repeat'
+          div.uid = newPlane.uid
+
+          this.containerEle.appendChild(div)
+        }
+
+      }
+
+      this.createBullet = function (){
+        if(this.createBulletCountFlag >= this.createBulletFreq){
+
+          // 计数器重置
+          this.createBulletCountFlag = 0
+
+          // 创建新子弹
+          var newBullet = new Bullet()
+          newBullet.position.x =  this.playerPlane.position.x - newBullet.size.width / 2
+          newBullet.position.y = this.playerPlane.position.y - newBullet.size.height
+          this.bulletList.push(newBullet)
+
+          var div = document.createElement('div')
+          div.className = 'bullet'
+          div.style.width = newBullet.size.width + 'px'
+          div.style.height = newBullet.size.height + 'px'
+          div.style.left = newBullet.position.x + 'px'
+          div.style.top = newBullet.position.y + 'px'
+          div.style.position = 'absolute'
+          div.style.background = 'url(' + newBullet.src + ') no-repeat'
+          div.uid = newBullet.uid
+
+          this.containerEle.appendChild(div)
+        }
+      }
+
+      this.updateGameInfo = function (){
+
+        // 敌机信息更新
+        for(var i = 0; i < this.foeList.length; i ++){
+          var item = this.foeList[i]
+          item.move()
+          item.checkDel(this)
+        }
+
+        // 子弹信息更新
+        for(var i = 0; i < this.bulletList.length; i ++){
+          var item = this.bulletList[i]
+          item.move()
+          item.checkDel(this)
+        }
+
+        // 更新子弹和敌机的删除状态
+        this.updateDelStatus()
+
+        // 检查是否游戏结束
+        this.checkIsGameOver()
+
+      }
+
+      this.updateDelStatus = function (){
+        for(var i = 0; i < this.foeList.length; i ++){
+          var item = this.foeList[i]
+          if(item.shouldDel){
+            continue
+          }
+          for(var j = 0; j < this.bulletList.length; j ++){
+            var item2 = this.bulletList[j]
+            if(item2.shouldDel){
+              continue
+            }
+            if((item2.position.x + item2.size.width) > item.position.x && item2.position.x < ( item.position.x + item.size.width )
+              && item2.position.y <= ( item.position.y + item.size.height ) && (item2.position.y + item2.size.height) > item.position.y){
+              item.shouldDel = true
+              item2.shouldDel = true
+              break
+            }
+          }
+        }
+      }
+
+      this.renderUI = function (){
+
+        if(this.isGameOver){
+          var menu = this.containerEle.querySelector('.menu')
+          if(menu){
+            menu.style.display = 'block'
+          }else{
+            var div = document.createElement('div')
+            div.className = 'menu'
+            div.style.position = 'absolute'
+            div.style.left = '0'
+            div.style.top = '0'
+            div.style.bottom = '0'
+            div.style.right = '0'
+            div.style.backgroundColor = 'rgba(0,0,0,.5)'
+            div.style.display = 'block'
+            div.style.zIndex  = '1000'
+            div.style.textAlign = 'center'
+            div.style.lineHeight = this.clientHeight + 'px'
+            div.innerText = 'Game Over'
+            div.style.color = '#fff'
+            div.style.fontSize = '30px'
+            div.style.fontWeight = '800'
+            this.containerEle.appendChild(div)
+          }
+
+        }
+
+        // 更新玩家飞机信息
+        this.playerPlaneEle.style.left = this.playerPlane.position.x + 'px'
+        this.playerPlaneEle.style.top = this.playerPlane.position.y + 'px'
+
+        // 更新敌机信息
+        var foeDelList = []
+        var foeEleList = this.containerEle.querySelectorAll('.foe')
+        for(var i = 0; i < foeEleList.length; i++){
+          var item = foeEleList[i]
+          if(this.foeList[i].shouldDel){
+            foeDelList.push(this.foeList[i].uid)
+          }else{
+            item.style.top = this.foeList[i].position.y + 'px'
+          }
+        }
+
+        for(var i = 0; i < foeDelList.length; i++){
+          var uid = foeDelList[i]
+          // 注意此处要从后往前删除，或者用另外一个数组来接收
+          for(var j = this.foeList.length - 1; j >= 0; j --){
+            if(this.foeList[j].uid === uid){
+              this.foeList.splice(j, 1)
+            }
+          }
+          for(var j = foeEleList.length - 1; j >= 0; j --){
+            if(foeEleList[j].uid === uid){
+              this.containerEle.removeChild(foeEleList[j])
+            }
+          }
+
+          // this.foeList.splice(foeDelList[i], 1)
+          // this.containerEle.removeChild(foeEleList[foeDelList[i]])
+        }
+
+
+        // 更新子弹信息
+        var bulletDelList = []
+        var bulletEleList = this.containerEle.querySelectorAll('.bullet')
+        for(var i = 0; i < bulletEleList.length; i ++){
+          var item = bulletEleList[i]
+          if(this.bulletList[i].shouldDel){
+            bulletDelList.push(this.bulletList[i].uid)
+          }else{
+            item.style.top = this.bulletList[i].position.y + 'px'
+          }
+        }
+
+        for(var i = 0; i < bulletDelList.length; i++){
+          var uid = bulletDelList[i]
+          // 注意此处要从后往前删除，或者用另外一个数组来接收
+          for(var j = this.bulletList.length - 1; j >= 0; j --){
+            if(this.bulletList[j].uid === uid){
+              this.bulletList.splice(j, 1)
+            }
+          }
+          for(var j = bulletEleList.length - 1; j >= 0; j --){
+            if(bulletEleList[j].uid === uid){
+              this.containerEle.removeChild(bulletEleList[j])
+            }
+          }
+        }
+      }
+
+      this.shouldContinue = function (){
+        return this.isRunning && !this.isGameOver
+      }
+
+      this.checkIsGameOver = function (){
+        var player = this.playerPlane
+        var playerWidthMin = player.position.x - player.size.width / 2
+        var playerWidthMax = player.position.x + player.size.width / 2
+        var playerHeightMin = player.position.y - player.size.height / 2
+        var playerHeightMax = player.position.y + player.size.height / 2
+
+        var foeList = this.foeList
+        for(var i = 0; i < foeList.length; i++){
+          var item = foeList[i]
+          if(item.shouldDel){
+            continue
+          }
+          if( item.position.x < playerWidthMax && (item.position.x + item.size.width) > playerWidthMin
+              && item.position.y < playerHeightMax && (item.position.y + item.size.height) > playerHeightMin ){
+            this.isGameOver = true
+          }
+        }
+      }
+    }
+
+    function Plane(size, position, speed, src){
+      this.size = {
+        height: size && size.height || 24,
+        width: size && size.width || 34
+      }
+      this.position = {
+        x: position && position.x || 0,
+        y: position && position.y || 0
+      }
+      this.src = src || 'img/foe.png'
+      this.speed = speed || 10
+      this.shouldDel = false
+      this.uid = new Date().getTime()
+
+      this.move = function (){
+        this.position.y += this.speed
+      }
+
+      this.checkDel = function (container){
+        if(this.position.y > container.clientHeight){
+          this.shouldDel = true
+        }
+      }
+    }
+
+    function Bullet(size, position, speed, src){
+      this.size = {
+        width: size && size.width || 6,
+        height: size && size.height || 14
+      }
+      this.position = {
+        x: position && position.x || 0,
+        y: position && position.y || 0
+      }
+      this.src = src || 'img/b.png'
+      this.speed = speed || 20
+      this.shouldDel = false
+      this.uid = new Date().getTime()
+
+      this.move = function (){
+        this.position.y -= this.speed
+      }
+
+      this.checkDel = function (container){
+        if(this.position.y + this.size.height < 0){
+          this.shouldDel = true
+        }
+      }
+    }
+
+
+  </script>
+</body>
+</html>

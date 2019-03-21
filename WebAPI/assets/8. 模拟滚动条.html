@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>模拟滚动条</title>
+  <style>
+    .content-wrapper {
+      width: 300px;
+      height: 500px;
+      border: 5px solid blue;
+      margin: 100px auto;
+      position: relative;
+      overflow: hidden;
+    }
+    .scroll-bar-wrapper {
+      position: absolute;
+      height: 100%;
+      width: 17px;
+      background-color: lightgray;
+      right: 0;
+      top: 0;
+      opacity: 0;
+      transition: opacity .5s;
+    }
+    .scroll-bar-wrapper:hover {
+      opacity: .4;
+    }
+    .scroll-bar {
+      height: 50px;
+      position: absolute;
+      width: 100%;
+      left: 0;
+      background-color: red;
+      border-radius: 8px;
+    }
+    .content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: -1;
+    }
+  </style>
+</head>
+<body>
+<div class="content-wrapper">
+  <div class="scroll-bar-wrapper">
+    <div class="scroll-bar"></div>
+  </div>
+  <div class="content">
+    这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，段内容
+    这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，段内容
+    这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，段内容
+    这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，段内容
+    这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，段内容
+    这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，段内容
+    这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，段内容
+    这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，
+    这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容
+    这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容
+    这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，
+    这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容
+    这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容
+    这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容
+    是一段内容，这是一段内容，段内容
+    这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，段内容
+    这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，段内容
+    这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，
+    这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容
+    这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容
+    这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，
+    这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容
+    这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容
+    这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，
+    是一段内容，这是一段内容，段内容
+    这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，段内容
+    这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，段内容
+    这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，
+    这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容
+    这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容
+    这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，
+    这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容
+    这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容
+    这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，这是一段内容，
+  </div>
+</div>
+<script>
+  var contentWrapper = document.getElementsByClassName('content-wrapper')[0]
+  var scrollBarWrapper = document.getElementsByClassName('scroll-bar-wrapper')[0]
+  var scrollBar = document.getElementsByClassName('scroll-bar')[0]
+  var content = document.getElementsByClassName('content')[0]
+
+  // console.log('contentWrapper.clientHeight:', contentWrapper.clientHeight)
+  // console.log('scrollBarWrapper.offsetHeight', scrollBarWrapper.offsetHeight)
+  // console.log('scrollBar.offsetHeight', scrollBar.offsetHeight)
+  // console.log('content.scrollHeight', content.scrollHeight)
+
+  // 1. 计算滚动条的高度
+  var scrollBarHeight =  contentWrapper.clientHeight * scrollBarWrapper.offsetHeight / content.scrollHeight
+  scrollBar.style.height = parseInt(scrollBarHeight) + 'px'
+
+  // 2. 滚动条能够随鼠标拖动
+  scrollBar.onmousedown = function (e){
+
+    scrollBarWrapper.style.opacity = 1
+    e.stopPropagation()
+
+    // 鼠标相对滚动条的顶部的位置
+    var cursorRelativeHeight = e.pageY - scrollBarWrapper.offsetTop - scrollBar.offsetTop - contentWrapper.offsetTop
+
+    document.onmousemove = function (e){
+      var top = e.pageY - cursorRelativeHeight - scrollBarWrapper.offsetTop - contentWrapper.offsetTop
+      top = top > 0 ? top : 0
+      top = top < scrollBarWrapper.clientHeight - scrollBar.offsetHeight ? top : scrollBarWrapper.clientHeight - scrollBar.offsetHeight
+      scrollBar.style.top = top + 'px'
+
+      // 3.计算滚动条移动的距离 与 最大可移动距离 的比例，即为 内容滚上去的距离 与 内容最大可滚上去的距离之比
+      var contentScrollTop = top /  (scrollBarWrapper.clientHeight - scrollBar.offsetHeight) * (content.scrollHeight - contentWrapper.clientHeight)
+      content.style.top = - contentScrollTop + 'px'
+    }
+
+
+
+    document.onmouseup = function (e){
+      document.onmousemove = null
+      scrollBarWrapper.style.opacity = ''
+    }
+
+
+
+  }
+
+
+</script>
+</body>
+</html>

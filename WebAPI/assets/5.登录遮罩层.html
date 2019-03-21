@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+    }
+    #loginModal {
+      width: 400px;
+      height: 300px;
+      background-color: gray;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display:none;
+      z-index: 1000;
+    }
+    #btnClose {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      text-decoration: none;
+    }
+    .mask {
+      background-color: #000;
+      opacity: .3;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: none;
+      z-index: 999;
+    }
+  </style>
+</head>
+<body>
+  <input type="button" value="打开登录modal" id="openModal">
+  <p>123456adfasdf </p>
+  <a href="http://www.baidu.com">跳转百度</a>
+  <div id="loginModal">
+    <a href="javascript:void(0);" id="btnClose">关闭</a>
+    <input type="button" value="点击测试登录" id="testLogin" style="margin-top: 50px;">
+  </div>
+  <div class="mask"></div>
+
+  <script>
+    var openModal = document.getElementById('openModal')
+    var loginModal = document.getElementById('loginModal')
+    var mask = document.getElementsByClassName('mask')[0]
+    var btnClose = document.getElementById('btnClose')
+
+    openModal.addEventListener('click', function (){
+      loginModal.style.display = 'block'
+      mask.style.display = 'block'
+    })
+
+    testLogin.onclick = function (){
+      console.log('login success')
+    }
+
+    btnClose.onclick = function (){
+      loginModal.style.display = 'none'
+      mask.style.display = 'none'
+    }
+
+    // 以下实现loginModal的拖拽
+    loginModal.onmousedown = function (e){
+      var cursorRelativeLeft = e.pageX - this.offsetLeft + 200
+      var cursorRelativeTop = e.pageY - this.offsetTop + 150
+
+      this.style.cursor = 'move'
+
+      document.onmousemove = function (e){
+        var loginModalLeft = e.pageX  - cursorRelativeLeft
+        var loginModalTop = e.pageY - cursorRelativeTop
+        loginModal.style.left = loginModalLeft + 200 + 'px'
+        loginModal.style.top = loginModalTop + 150 + 'px'
+      }
+
+      document.onmouseup = function (e){
+        loginModal.style.cursor = 'default'
+        document.onmousemove = null
+      }
+    }
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>WaterFall （瀑布流）</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    #waterfall {
+      margin: 20px auto;
+      position: relative;
+    }
+    #waterfall img {
+      padding: 4px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+  <div id="waterfall">
+    <img src="images/P_001.jpg" alt="">
+    <img src="images/P_002.jpg" alt="">
+    <img src="images/P_003.jpg" alt="">
+    <img src="images/P_004.jpg" alt="">
+    <img src="images/P_005.jpg" alt="">
+    <img src="images/P_006.jpg" alt="">
+    <img src="images/P_007.jpg" alt="">
+  </div>
+  <script>
+    var waterfall = document.querySelector('#waterfall')
+
+    function initWaterfall(colNum, colWidth, colInterval){
+
+      // 设置容器的宽度
+      var containerWidth = colNum * colWidth + (colNum - 1) * colInterval
+      waterfall.style.width = containerWidth + 'px'
+
+      // 定义arr存放每列高度
+      var arr = []
+      for(var i = 0; i < colNum; i ++){
+        arr.push(0)
+      }
+
+      waterfall.heightArr = arr
+      waterfall.colNum = colNum
+      waterfall.colWidth = colWidth
+      waterfall.colInterval = colInterval
+    }
+
+    initWaterfall(3, 310, 10)
+
+    function updateWaterfall(waterfall, newItems){
+
+      for(var i = 0; i < newItems.length; i ++){
+        var min = getMin(waterfall.heightArr)
+        newItems[i].style.left = min.colNum * (waterfall.colWidth + waterfall.colInterval) + 'px'
+        newItems[i].style.top = min.colHeight + 'px'
+        newItems[i].style.width = waterfall.colWidth + 'px'
+
+        waterfall.heightArr[min.colNum] += newItems[i].offsetHeight + waterfall.colInterval
+      }
+
+    }
+
+    window.onload = function (){
+      var newItems = waterfall.children
+      updateWaterfall(waterfall, newItems)
+    }
+
+    window.onscroll = function (){
+      if(shouldFetch()){
+        var json = [
+          {src: 'images/P_001.jpg'},
+          {src: 'images/P_002.jpg'},
+          {src: 'images/P_003.jpg'},
+          {src: 'images/P_004.jpg'},
+          {src: 'images/P_005.jpg'},
+          {src: 'images/P_006.jpg'},
+        ]
+
+        // 创建图片节点，添加到waterfall中
+        var newItems = []
+        for(var i = 0; i < json.length; i++){
+          var img = document.createElement('img')
+          img.src = json[i].src
+          waterfall.appendChild(img)
+          newItems.push(img)
+        }
+
+        // 更新waterfall的UI
+        updateWaterfall(waterfall, newItems)
+      }
+    }
+
+
+
+
+    function shouldFetch(){
+      // 如果卷上去的高度+浏览器高度 > 最低高度，就加载数据
+      var scrollTop = document.body.scrollTop || document.documentElement.scrollTop
+      if(window.innerHeight + scrollTop >= getMin(waterfall.heightArr).colHeight){
+        console.log('fetch')
+        return true
+      }
+      return false
+    }
+
+
+    function getMin(arr){
+      var min = {
+        colNum: 0,
+        colHeight: arr[0]
+      }
+
+      for(var i = 1; i < arr.length; i++){
+        if(arr[i] < min.colHeight){
+          min.colNum = i
+          min.colHeight = arr[i]
+        }
+      }
+
+      return min
+    }
+
+  </script>
+</body>
+</html>

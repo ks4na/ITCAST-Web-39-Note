@@ -92,11 +92,11 @@ var boxes = document.querySelectorAll('.box')
 
    - 设置内容时：
 
-     innerHTML设置内容时，如果有标签则会以HTML的方式来解析；而innerText会原封不动显示为文本。
+     innerHTML设置内容时，会以HTML的方式来解析；而innerText会原封不动显示为文本。
 
 4. HTML转义符
 
-   ```js
+   ```
    "		&quot;
    '		&apos;
    & 		&amp;

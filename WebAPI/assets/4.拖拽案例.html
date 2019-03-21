@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>拖拽案例</title>
+  <style>
+    body {
+      margin: 0;
+      height: 2000px;
+    }
+
+    .modal {
+      width: 400px;
+      height: 300px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      box-shadow: 2px 2px 10px #999;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-left: -200px;
+      margin-top: -150px;
+      border-radius: 5px;
+    }
+
+    .modal .header {
+      height: 40px;
+      line-height: 40px;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 0 15px;
+      background-color: lightblue;
+      border-radius: 5px 5px 0 0;
+    }
+
+    .modal .header .close {
+      float: right;
+      text-decoration: none;
+      color: #999;
+    }
+
+    .modal .header .close:hover {
+      color: #333;
+    }
+
+    .modal .body {
+      height: 260px;
+      background-color: pink;
+      border-radius: 0 0 5px 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="modal modal-draggable">
+    <div class="header">
+      可拖拽的窗口
+      <a href="javascript:void(0);" class="close">关闭</a>
+    </div>
+    <div class="body"></div>
+
+    <script>
+      var currentMoveTarget = null
+      var modalDraggable = document.getElementsByClassName('modal-draggable')
+      for (var i = 0; i < modalDraggable.length; i++) {
+        var header = modalDraggable[i].getElementsByClassName('header')[0]
+        var closeBtn = modalDraggable[i].getElementsByClassName('close')[0]
+
+        // header上鼠标按下事件
+        header.addEventListener('mousedown', function (e) {
+          this.style.cursor = 'move'
+
+          posLeft = e.pageX - this.parentNode.offsetLeft
+          posTop = e.pageY - this.parentNode.offsetTop
+          currentMoveTarget = this.parentNode
+
+          // document上鼠标移动事件
+          document.addEventListener('mousemove', handleMove)
+
+          // document上鼠标抬起事件
+          document.addEventListener('mouseup', function () {
+            currentMoveTarget.getElementsByClassName('header')[0].style.cursor = 'default'
+            this.removeEventListener('mousemove', handleMove)
+          })
+        })
+
+        function handleMove(e) {
+          currentMoveTarget.style.left = e.pageX - posLeft + 200 + 'px'
+          currentMoveTarget.style.top = e.pageY - posTop + 150 + 'px'
+        }
+
+        closeBtn.addEventListener('click', function () {
+          this.parentNode.parentNode.style.display = 'none'
+        })
+
+        closeBtn.addEventListener('mousedown', function (e) {
+          e.stopPropagation()
+        })
+      }
+    </script>
+  </div>
+</body>
+
+</html>

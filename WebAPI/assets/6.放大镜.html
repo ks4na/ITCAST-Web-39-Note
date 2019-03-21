@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>放大镜</title>
+  <style>
+    body {
+      margin: 0;
+      padding-top: 100px;
+      padding-left: 100px;
+    }
+
+    .wrapper {
+      width: 300px;
+      height: 300px;
+      position: relative;
+    }
+
+    .big {
+      width: 400px;
+      height: 400px;
+      position: absolute;
+      top: 0;
+      left: 310px;
+      overflow: hidden;
+      display: none;
+    }
+
+    .small img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .big img {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .target-area {
+      width: 150px;
+      height: 150px;
+      background-color: yellow;
+      opacity: .3;
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: none;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+      <div class="small">
+        <img src="images/small.jpg" alt="">
+        <div class="target-area"></div>
+      </div>
+      <div class="big">
+        <img src="images/big.jpg" alt="">
+      </div>
+  </div>
+
+  <script>
+    var small = document.getElementsByClassName('small')[0]
+    var big = document.getElementsByClassName('big')[0]
+    var targetArea = document.getElementsByClassName('target-area')[0]
+    var bigImage = big.getElementsByTagName('img')[0]
+    var clientOffsetLeft = getClientOffset(small).clientOffsetLeft
+    var clientOffsetTop = getClientOffset(small).clientOffsetTop
+
+    small.onmouseenter = function (){
+      big.style.display = 'block'
+      targetArea.style.display = 'block'
+
+      this.onmousemove = function (e){
+        relativeLeft = e.pageX - clientOffsetLeft
+        relativeTop = e.pageY -  clientOffsetTop
+
+        relativeLeft = relativeLeft - targetArea.clientWidth / 2
+        relativeTop = relativeTop - targetArea.clientHeight / 2
+
+        relativeLeft = relativeLeft > 0 ? relativeLeft : 0
+        relativeLeft = relativeLeft < small.clientWidth - targetArea.offsetWidth ? relativeLeft : small.clientWidth - targetArea.offsetWidth
+        relativeTop = relativeTop > 0 ? relativeTop : 0
+        relativeTop = relativeTop < small.clientHeight - targetArea.offsetHeight ? relativeTop : small.clientHeight - targetArea.offsetHeight
+
+        targetArea.style.left = relativeLeft + 'px'
+        targetArea.style.top = relativeTop + 'px'
+
+        // 大图随小图中的黄色方块移动而调整显示位置
+        //relativeLeft/ (small.clientWidth - targetArea.offsetWidth) = - 大图左偏移量 / (bigImage.clientWidth - big.clientWidth)
+        var bigImageOffsetLeft = (bigImage.clientWidth - big.clientWidth) * relativeLeft / (small.clientWidth - targetArea.offsetWidth) 
+        var bigImageOffsetTop = (bigImage.clientHeight - big.clientHeight) * relativeTop / (small.clientHeight - targetArea.offsetHeight) 
+        bigImage.style.left = - bigImageOffsetLeft + 'px'
+        bigImage.style.top = - bigImageOffsetTop + 'px'
+      }
+
+      small.onmouseleave = function (e){
+        big.style.display = 'none'
+        targetArea.style.display = 'none'
+      }
+    }
+
+    function getClientOffset(ele){
+      var left = 0
+      var top = 0
+      while(ele.offsetParent){
+        left += ele.offsetLeft
+        top += ele.offsetTop
+        ele = ele.offsetParent
+      }
+      return {
+        clientOffsetLeft: left,
+        clientOffsetTop: top
+      }
+    }
+  </script>
+</body>
+</html>
