@@ -211,7 +211,7 @@ p {
 `background-attachment` , 默认值为 `scroll` 。
 
 - scroll - 背景图片随内容滚动；
-- fixed - 背景图片相对于**浏览器可视区域**固定。
+- fixed - 背景图片相对于**该元素可视区域**固定。
 
 **背景简写**
 
