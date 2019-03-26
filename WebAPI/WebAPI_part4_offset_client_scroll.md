@@ -22,6 +22,14 @@
 
 ![scroll图解](media/scroll.png)
 
+### 获取页面滚动距离
+
+```js
+var top = document.documentElement.scrollTop || document.body.scrollTop
+var left = document.documentElement.scrollLeft || document.body.scrollLeft
+// 使用 document.documentElement 还是 document.body 取决于有没有声明 DOCTYPE。
+```
+
 ### mouseenter  与 mouseover 的区别
 
 - mouseenter/mouseleave - 不会触发事件冒泡
