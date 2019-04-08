@@ -117,6 +117,8 @@ transform: rotateY(45deg);
 
 ### 4. backface-visibility(背面不可见)
 
+可选值：visible、hidden。
+
 案例： 两面翻转效果
 
 ![两面翻转效果](assets/backface-visibility.gif)
