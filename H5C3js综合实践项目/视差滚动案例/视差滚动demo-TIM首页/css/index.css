@@ -1,0 +1,493 @@
+﻿.clearfix::before,
+.clearfix::after {
+    content: "";
+    display: block;
+}
+.clearfix::after {
+    clear: both;
+}
+dl,
+dd {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: Helvetica, Tahoma, Arial, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", STXihei, STHeiti, Heiti, SimSun, sans-serif;
+    color: #333;
+    text-shadow: 0 1px 0 #000, 0 0 5px #000;
+}
+
+/* topbar */
+.topbar-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    background: transparent;
+}
+.topbar {
+    width: 1170px;
+    height: 75px;
+    margin: 0 auto;
+}
+.topbar .topside {
+    float: left;
+    height: 100%;
+}
+.topbar .topside .logo {
+    float: left;
+    width: 106px;
+    height: 100%;
+    /*font-size: 0;*/
+    text-indent: 999em;
+    overflow: hidden;
+    background: url("../images/imlogo_b.png") no-repeat 0 15px;
+}
+.topbar .topside .topnav {
+    float: left;
+    padding-left: 18px;
+    width: 450px;
+    height: 100%;
+    font-size: 100%;
+}
+.topbar .topside .topnav li {
+    float: left;
+    margin-left: 20px;
+}
+.topbar .topside .topnav li a {
+    display: block;
+    height: 100%;
+    padding: 0 20px;
+    line-height: 75px;
+    color: #333;
+    font-size: 1.125em;
+}
+.topbar .topside .topnav li a.active,
+.topbar .topside .topnav li a:hover {
+    background-color: #12b7f5;
+}
+.topbar .topbtns {
+    float: right;
+    height: 100%;
+    width: 320px;
+}
+.topbar .topbtns .registerbtn {
+    float: left;
+    width: 96px;
+    height: 0;
+    margin: 18px 0 0 0;
+    padding: 39px 0 0 0;
+    overflow: hidden;
+    background: url("../images/icons.png") no-repeat 0 -244px;
+}
+.topbar .topbtns ul {
+    float: right;
+    margin: 6px 0 0 0;
+}
+.topbar .topbtns ul a {
+    font-size: 14px;
+    color: #333;
+}
+.topbar .topbtns ul li {
+    float: right;
+    margin-left: 30px;
+    height: 40px;
+    line-height: 40px;
+    position: relative;
+}
+.topbar .topbtns ul li .login-panel {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    width: 120px;
+    background-color: #fff;
+    display: none;
+    font-size: 14px;
+}
+.topbar .topbtns ul li .login-panel::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    border: 5px solid #fff;
+    border-color: transparent transparent #fff transparent;
+
+}
+.topbar .topbtns ul li .login-panel div {
+    height: 39px;
+    line-height: 39px;
+    border-top: 1px solid #d7d7d7;
+    width: 100px;
+    padding: 0 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+.topbar .topbtns ul li .login-panel div:nth-of-type(1){
+    border-top: 0;
+}
+.topbar .topbtns .flashdata {
+    float: right;
+    text-align: right;
+    line-height: 17px;
+    letter-spacing: 0.04em;
+}
+.topbar .topbtns .flashdata a {
+    color: #333;
+    font-size: 14px;
+}
+.topbar .topbtns .flashdata a:hover {
+    text-decoration: underline;
+}
+
+/* pg1 */
+.pg1 {
+    height: 778px;
+    background: url("../images/tim_bg_1.jpg") no-repeat center center;
+    background-size: cover;
+    overflow: hidden;
+}
+.pg1 .content {
+    width: 98%;
+    min-width: 960px;
+    max-width: 1900px;
+    padding: 6% 0 0 0;
+    margin: 0 auto;
+}
+.pg1 .content .tim-words {
+    width: 297px;
+    height: 167px;
+    background: url("../images/logo.png") no-repeat center top;
+    margin: 0 auto;
+}
+.pg1 .content .tim-btn a {
+    display: block;
+    overflow: hidden;
+    width: 328px;
+    height: 0;
+    padding: 72px 0 0 0;
+    margin: 2% auto 4%;
+    background: url("../images/btn.png") no-repeat center top;
+}
+.pg1 .content .tim-icons {
+    margin: 0 auto;
+    width: 812px;
+    height: 147px;
+    background: url("../images/icon.png") no-repeat center top;
+}
+.pg1 .content .tim-img {
+    width: 100%;
+}
+
+.theme {
+    height: 0;
+    padding: 280px 0 0 0;
+    overflow: hidden;
+    background: url("../images/brand.png") no-repeat center top;
+    margin: 0 0;
+}
+
+.bg {
+    background-attachment: fixed;
+    height: 600px;
+    background-repeat: no-repeat;
+    background-position: center 0;
+}
+
+/* pg2 */
+.pg2 .bg {
+    background-image: url("../images/fisrtbg.jpg");
+}
+.qfigure {
+    height: 584px;
+    background-color: #fff;
+}
+.qfigure-inner {
+    height: 100%;
+    width: 960px;
+    position: relative;
+    margin: 0 auto;
+}
+.pg2 .qfigure-inner .qcall-img {
+    position: absolute;
+    background: url("../images/pic1.png") no-repeat center top;
+    width: 664px;
+    height: 763px;
+    bottom: 0;
+    left: -32px;
+}
+.pg2 .qfigure-inner .qfigure-text {
+    position: absolute;
+    top: 115px;
+    right: 7px;
+    width: 487px;
+}
+.qfigure-inner h2 {
+    margin: 0 0;
+}
+.pg2 .qfigure-inner .qfigure-text h2 {
+    height: 0;
+    width: 487px;
+    padding-top: 135px;
+    overflow: hidden;
+    background: url("../images/qcall_txt.png") no-repeat 0 0;
+}
+.qfigure-inner .qfigure-text p {
+    font-size: 18px;
+    margin: 0 0 12px 0;
+    opacity: .6;
+    text-align: right;
+    letter-spacing: 0.12em;
+}
+.qfigure-inner .qfigure-text p a {
+    color: #12b7f5;
+}
+.qfigure-inner .qfigure-text .figures {
+    padding: 44px 0 0 0;
+    height: 77px;
+}
+.qfigure-inner .qfigure-text .figures li {
+    float: left;
+    font-size: 14px;
+    padding: 58px 0 0 0;
+    text-align: center;
+    color: #a0a0a0;
+}
+.pg2 .qfigure-inner .qfigure-text .figures {
+    background: url("../images/qcall_figs.png") no-repeat right 41px;
+}
+.pg2 .qfigure-inner .qfigure-text .figures li {
+    border-left: 1px solid #e9e9e9;
+    float: right;
+}
+.pg2 .qfigure-inner .qfigure-text .figures .figure1 {
+    width: 163px;
+    border-left: 0;
+}
+.pg2 .qfigure-inner .qfigure-text .figures .figure2 {
+    width: 112px;
+}
+.pg2 .qfigure-inner .qfigure-text .figures .figure3 {
+    width: 78px;
+    text-align: right;
+}
+/* pg3 */
+.pg3 .bg {
+    background-image: url("../images/avd.jpg");
+}
+.pg3 .qfigure-inner .qfile-img {
+    position: absolute;
+    width: 597px;
+    height: 330px;
+    background: url("../images/pic2.png") no-repeat 0 0;
+    right: -100px;
+    bottom: 104px;
+}
+.pg3 .qfigure-inner .qfigure-text {
+    position: absolute;
+    width: 450px;
+    top: 115px;
+    left: 7px;
+}
+.pg3 .qfigure-inner .qfigure-text h2 {
+    width: 450px;
+    height: 0;
+    padding: 140px 0 0 0;
+    overflow: hidden;
+    background: url("../images/txt.png") no-repeat 0 0;
+}
+.pg3 .qfigure-inner .qfigure-text p {
+    text-align: left;
+    padding-left: 5px;
+}
+.pg3 .qfigure-inner .qfigure-text .figures {
+    background: url("../images/qfile_figs.png") no-repeat 7px 41px;
+}
+.pg3 .qfigure-inner .qfigure-text .figures .figure1 {
+    text-align: left;
+    width: 94px;
+    text-indent: 12px;
+    border-right: 1px solid #e9e9e9;
+}
+.pg3 .qfigure-inner .qfigure-text .figures .figure2 {
+    width: 116px;
+    border-right: 1px solid #e9e9e9;
+}
+.pg3 .qfigure-inner .qfigure-text .figures .figure3 {
+    width: 98px;
+}
+
+/* pg4 */
+.pg4 .bg {
+    background-image: url("../images/blog.jpg");
+}
+.pg4 .qfigure-inner .qblog-img {
+    position: absolute;
+    bottom: 0;
+    left: 88px;
+    width: 300px;
+    height: 506px;
+    background: url("../images/pic3.png") no-repeat -30px 0;
+}
+.pg4 .qfigure-inner .qblog-img .qblog-wrap {
+    position: relative;
+    left: 0;
+    top: 217px;
+    width: 291px;
+    height: 150px;
+}
+/*.pg4 .qfigure-inner .qblog-img:hover .qblog-wrap div {*/
+    /*opacity: 1;*/
+    /*transform: scale(1, 1);*/
+/*}*/
+.pg4 .qblog-img .qblog-wrap div {
+    position: absolute;
+    height: 150px;
+    width: 150px;
+    top: 0;
+    /*transition: all .2s ease-out;*/
+    opacity: 0;
+    transform: scale(.5, .5);
+}
+.pg4 .qblog-img .qblog-wrap div.zoomIn {
+    animation: zoomIn .2s ease-out;
+    animation-fill-mode: forwards;
+}
+
+@keyframes zoomIn {
+    0% {}
+    60% { transform: scale(1.1);}
+    100% { opacity: 1; transform: scale(1);}
+}
+.pg4 .qfigure-inner .qblog-img .qblog-wrap .pic1 {
+    background: url("../images/qblog_fig1.png") no-repeat 0 0;
+    animation-delay: 0.4s;
+    left: -122px;
+}
+.pg4 .qfigure-inner .qblog-img .qblog-wrap .pic2 {
+    background: url("../images/qblog_fig2.png") no-repeat 0 0;
+    /*transition-delay: 0.05s;*/
+    animation-delay: 0.5s;
+    left: 70px;
+}
+.pg4 .qfigure-inner .qblog-img .qblog-wrap .pic3 {
+    background: url("../images/qblog_fig3.png") no-repeat 0 0;
+    /*transition-delay: 0.05s;*/
+    animation-delay: 0.6s;
+    right: -119px;
+}
+.pg4 .qfigure-inner .qfigure-text {
+    position: absolute;
+    right: 7px;
+    top: 120px;
+    width: 495px;
+}
+
+.pg4 .qfigure-inner .qfigure-text h2 {
+    width: 495px;
+    height: 0;
+    padding: 135px 0 0 0;
+    overflow: hidden;
+    background: url("../images/qblog_txt.png") no-repeat 0 0;
+}
+.pg4 .qfigure-inner .qfigure-text .figures {
+    background: url("../images/qblog_figs.png") no-repeat 228px 41px;
+}
+.pg4 .qfigure-inner .qfigure-text .figures li {
+    border-left: 1px solid #e9e9e9;
+    float: right;
+}
+.pg4 .qfigure-inner .qfigure-text .figures .figure1 {
+    width: 95px;
+    border-left: 0;
+}
+.pg4 .qfigure-inner .qfigure-text .figures .figure2 {
+    width: 115px;
+}
+.pg4 .qfigure-inner .qfigure-text .figures .figure3 {
+    width: 78px;
+    text-align: right;
+}
+
+/* footer */
+.footer {
+    height: 348px;
+    padding: 34px 0 0 0;
+    background-color: #2a2a2a;
+}
+.footer .inner {
+    margin: 0 auto;
+    width: 960px;
+}
+.footer .qmaps {
+    height: 205px;
+    color: #666;
+    font-size: 14px;
+}
+.footer .qmaps dl {
+    float: left;
+    width: 170px;
+}
+.footer .qmaps dl:last-child {
+    width: 80px;
+}
+.footer .qmaps dl dt {
+    height: 25px;
+}
+.footer .qmaps dl dd {
+    font-size: 12px;
+    height: 20px;
+}
+.footer .qmaps dl dd a {
+    color: #979797;
+}
+.footer .qmaps .plats {
+    width: 510px;
+    padding-left: 8px;
+}
+.footer .qmaps .plats dt {
+    height: 50px;
+}
+.footer .qmaps .plats dd {
+    float: left;
+    font-size: 14px;
+    height: auto;
+}
+.footer .qmaps .plats dd a {
+    display: block;
+    width: 80px;
+    margin-right: 35px;
+    padding-top: 65px;
+    text-align: center;
+    color: #666;
+    background: url("../images/plats1.png") no-repeat;
+}
+.footer .qmaps .plats dd:nth-of-type(2) a {
+    background-position: -105px 0;
+}
+.footer .qmaps .plats dd:nth-of-type(3) a {
+    background-position: -210px 0;
+
+}
+.footer .qmaps .plats dd:nth-of-type(4) a {
+    background-position: -326px 0;
+}
+.footer .qmaps .plats dd a:hover {
+    background-position-y: -93px;
+    color: #12b7f5;
+}
+.footer .copyright {
+    height: 49px;
+    border-top: 1px solid #666;
+    color: #666;
+    padding-top: 16px;
+    line-height: 16px;
+    text-align: center;
+}
+.footer .copyright p {
+    margin: 0;
+    font-size: 12px;
+}

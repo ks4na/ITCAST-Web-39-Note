@@ -40,4 +40,9 @@
 - Ajax、jQuery
   - [ajax](Ajax、jQuery/ajax.md)
   - [jQuery](Ajax、jQuery/jQuery.md)
+- H5C3JS综合实践项目
+  - [H5购物网站宣传网页](H5C3js综合实践项目/H5购物网站宣传网站/购物网站宣传页面.md)
+  - [视差滚动案例-TIM首页](H5C3js综合实践项目/视差滚动案例/视差滚动案例.md)
+  - [360度3D旋转案例](H5C3js综合实践项目/360度3d旋转/360度3d旋转.md)
+  - [兼容性处理(理解)](H5C3js综合实践项目/H5购物网站宣传网站/兼容性处理.md)
 
