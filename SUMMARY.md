@@ -4,6 +4,7 @@
 * [html5]()
   * [Markdown语法复习](./html5/Markdown语法遗忘点.md)
   * [html5](./html5/html5.md)
+  * [H5新API](html5/H5新API.md)
 
 - [css3]()
   - [css3基础 - part1](css3/css_part1.md)
