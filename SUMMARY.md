@@ -46,4 +46,22 @@
   - [视差滚动案例-TIM首页](H5C3js综合实践项目/视差滚动案例/视差滚动案例.md)
   - [360度3D旋转案例](H5C3js综合实践项目/360度3d旋转/360度3d旋转.md)
   - [兼容性处理(理解)](H5C3js综合实践项目/H5购物网站宣传网站/兼容性处理.md)
+- 移动web开发
+  - [移动web开发](移动web开发/1.移动web开发.md)
+  - [响应式开发](移动web开发/2.响应式开发.md)
+  - [CSS预处理器](移动web开发/3.CSS预处理器.md)
+- Node.js笔记
+  - Node.js基础
+    - [nodes简介,ES6常用语法](nodejs笔记/nodejs基础/1.nodejs简介ES6常用语法.md)
+    - [Buffer对象](nodejs笔记/nodejs基础/2.Buffer对象.md)
+    - [路径操作](nodejs笔记/nodejs基础/3.路径操作.md)
+    - [文件操作](nodejs笔记/nodejs基础/4.文件操作.md)
+    - [包](nodejs笔记/nodejs基础/5.包.md)
+    - [实现服务器配置](nodejs笔记/nodejs基础/6.实现服务器配置.md)
+  - Express
+    - [Express框架](nodejs笔记/Express/1.express框架.md)
+  - Node.js图书管理系统-笔记
+    - [JSON.stringify的三个参数](nodejs笔记/nodejs图书管理系统/part1-JSON.stringify的三个参数.md)
+    - [express项目基本目录结构](nodejs笔记/nodejs图书管理系统/part2-express项目基本目录结构.md)
+    - [连接mysql数据库](nodejs笔记/nodejs图书管理系统/part3-连接mysql数据库.md)
 
