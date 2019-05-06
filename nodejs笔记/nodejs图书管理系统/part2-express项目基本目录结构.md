@@ -1,4 +1,14 @@
 # express项目基本目录结构
+
+- [操作步骤](#操作步骤)
+  - [初始化项目目录](#初始化项目目录)
+  - [安装依赖](#安装依赖)
+  - [index.js](#indexjs)
+  - [router.js](#routerjs)
+  - [bookRouter.js](#bookrouterjs)
+  - [loginController.js](#logincontrollerjs)
+  - [bookController.js](#bookcontrollerjs)
+
 ## 操作步骤
 ### 初始化项目目录
 ```sh

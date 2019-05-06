@@ -63,5 +63,10 @@
   - Node.js图书管理系统-笔记
     - [JSON.stringify的三个参数](nodejs笔记/nodejs图书管理系统/part1-JSON.stringify的三个参数.md)
     - [express项目基本目录结构](nodejs笔记/nodejs图书管理系统/part2-express项目基本目录结构.md)
-    - [连接mysql数据库](nodejs笔记/nodejs图书管理系统/part3-连接mysql数据库.md)
-
+    - [express多层路由写法](nodejs笔记/nodejs图书管理系统/part3-express多层路由写法.md)
+    - [连接mysql数据库](nodejs笔记/nodejs图书管理系统/part4-连接mysql数据库.md)
+    - [服务器端发送请求](nodejs笔记/nodejs图书管理系统/part5-服务器端发送请求.md)
+- git版本控制
+  - [git笔记](git笔记/git笔记.md)
+- vue基础
+  - [vue基础](vue基础/vue基础.md)
