@@ -69,4 +69,7 @@
 - git版本控制
   - [git笔记](git笔记/git笔记.md)
 - vue基础
-  - [vue基础](vue基础/vue基础.md)
+  - [vue指令](vue基础/vue指令.md)
+  - [vue指令_2](vue基础/vue指令_2.md)
+  - [vue生命周期和vue-resource](vue基础/vue生命周期和vue-resource.md)
+  - [vue动画](vue基础/vue动画.md)
