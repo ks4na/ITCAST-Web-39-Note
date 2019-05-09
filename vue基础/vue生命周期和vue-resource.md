@@ -1,5 +1,9 @@
 # vue生命周期和vue-resource
 
+- [vue生命周期](#vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F)
+- [vue-resource](#vue-resource)
+  - [全局配置ajax请求的接口的根路径](#%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AEajax%E8%AF%B7%E6%B1%82%E7%9A%84%E6%8E%A5%E5%8F%A3%E7%9A%84%E6%A0%B9%E8%B7%AF%E5%BE%84)
+
 ## vue生命周期
 - beforeCreate：  此阶段只创建了一个默认的Vue对象，包含默认的生命周期函数和默认的事件，data，methods等尚未初始化  
 - created：       此阶段data，methods可用  
@@ -34,6 +38,10 @@ handleFetch(){
 > handlePost(){
 >  this.$http.post(url, data, {emulateJSON: true}).then(successCallback, errorCallback)
 > }
+> ```
+> 全局配置post请求以`x-www-form-urlencoded`形式发送：  
+> ```js
+> Vue.http.options.emulateJSON = true
 > ```
 
 ### 全局配置ajax请求的接口的根路径

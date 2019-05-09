@@ -15,6 +15,7 @@
   - [自定义指令函数的简写方式](#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4%E5%87%BD%E6%95%B0%E7%9A%84%E7%AE%80%E5%86%99%E6%96%B9%E5%BC%8F)
 
 ## 品牌CRUD页面总结
+0. form中只有一个input时， 按Enter键会直接提交form，解决方案: form添加`onsubmit="return false"`
 1. 查找数组中某一项的索引： `.findIndex(item => item.id === id)`  
    字符串中是否包含某一项： `.includes(substring)`
 2. 指定事件处理函数时可以传入参数： `@click="deleteItem(12)"`
