@@ -53,9 +53,9 @@ var vm = new Vue({
 ```
 ```html
 <div id="app">
-  <div>a: {{a}}</div>
-  <div>b: {{b}}</div>
-  <div>addResult: {{addResult}}</div>
+  <div>a: {\{a}}</div>
+  <div>b: {\{b}}</div>
+  <div>addResult: {\{addResult}}</div>
 </div>
 ```
 ### computed属性和methods方法的对比

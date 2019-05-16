@@ -72,4 +72,7 @@
   - [vue指令](vue基础/vue指令.md)
   - [vue指令_2](vue基础/vue指令_2.md)
   - [vue生命周期和vue-resource](vue基础/vue生命周期和vue-resource.md)
-  - [vue动画](vue基础/vue动画.md)
+  - [vue过渡和动画](vue基础/vue过渡和动画.md)
+  - [vue组件](vue基础/vue组件.md)
+  - [vue路由](vue基础/vue路由.md)
+  - [vue补充](vue基础/vue补充.md)
