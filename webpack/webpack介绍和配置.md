@@ -19,7 +19,7 @@ webpack是一个前端项目自动化构建工具，基于nodejs开发(需要安
 2. 创建基本目录结构  
    ![webpack项目基本目录结构](media/webpack项目基本目录结构.png)
 3. 书写隔行变色代码
-   - `index.html` 中代码：
+    - `index.html` 中代码：
       ```html
       <body>
         <ul>

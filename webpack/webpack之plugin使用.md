@@ -92,7 +92,7 @@ webpack-dev-server启动后打开的根目录是项目根目录，需要手动�
    开发依赖中添加 `html-webpack-plugin`：  
    ```sh
    npm i html-webpack-plugin -D
-   ```
+   ```  
 2. 修改 `webpack.config.js` ：  
    ```js
    const htmlWebpackPlugin = require('html-webpack-plugin')

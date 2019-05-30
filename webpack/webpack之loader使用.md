@@ -110,6 +110,7 @@ module: {
 
 ## webpack中配置babel7
 > 注意：babel版本为7.x。  
+
 1. 安装loader：
    ```sh
    yarn add babel-loader @babel/core @babel/preset-env -D
