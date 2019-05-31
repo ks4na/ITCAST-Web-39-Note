@@ -81,3 +81,5 @@
   - [webpack之plugin使用](webpack/webpack之plugin使用.md)
   - [webpack之loader使用](webpack/webpack之loader使用.md)
   - [webpack之结合vue](webpack/webpack之结合vue.md)
+  - [webpack拓展之压缩提取](webpack/webpack拓展之压缩提取.md)
+  - [webpack基础配置参考](webpack/webpack基础配置参考.md)
