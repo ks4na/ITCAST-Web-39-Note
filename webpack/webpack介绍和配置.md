@@ -4,6 +4,7 @@
 - [安装webpack的方式](#安装webpack的方式)
 - [初步使用webpack](#初步使用webpack)
 - [使用webpack配置文件简化命令](#使用webpack配置文件简化命令)
+  - [webpack4配置文件mode属性](#webpack4配置文件mode属性)
 
 ## 什么是webpack
 webpack是一个前端项目自动化构建工具，基于nodejs开发(需要安装nodejs环境)。借助webpack可以完美实现资源的合并、打包、压缩、混淆等诸多功能。
@@ -57,3 +58,26 @@ module.exports = {
 }
 ```
 然后只需要在命令行输入 `webpack` 即可实现打包操作。
+
+### webpack4配置文件mode属性
+webpack4配置文件中如果不设置mode属性，打包时会提示：  
+![webpack4mode](media/webpackmode.png)  
+webpack将会默认使用 `production` 模式【生产环境】，其它可选值为： `development` , `none` 。  
+不同的mode，webpack会有不同的表现（例如：，`production` 模式下会将打包的文件压缩处理）。  
+可以通过设置环境变量的方式来自动修改webpack配置文件中的mode的值：
+```sh
+# build 命令传入NODE_ENV为production
+"build": "webpack --env.NODE_ENV=production",
+# start 命令传入NODE_ENV=development
+"start": "webpack --env.NODE_ENV=development"
+```
+然后修改 `webpack.config.js`，让 `mode` 根据 `NODE_ENV` 来改变：  
+```js
+// 需要将 module.exports 改成函数
+module.exports = function (env) {
+  return {
+    mode: env && env.NODE_ENV === 'production' ? env.NODE_ENV : 'development',  // mode设置成env的NODE_ENV的值
+    // ...
+  }
+}
+```
