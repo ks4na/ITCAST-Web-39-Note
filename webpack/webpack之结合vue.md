@@ -230,6 +230,8 @@ webpack中使用 `.vue` 文件来定义vue组件：
 - `<style>` 标签书写css代码，其中有两个属性：  
   - lang: 可以设置为 `less`,`scss` 等，但是需要配置相应的loader；
   - scoped: 设置该属性后，样式代码会应用于该组件及其内部的组件，而不会应用到全局【推荐添加】
+    - scoped实现原理： 给组件加上自定义属性，通过属性选择器来区别  
+      ![scoped实现原理](media/scoped实现原理.png)  
 
 > 注意： VS CODE最好安装上 `vetur` 代码提示工具，安装 `vetur` 之后，还需要修改 `settings.json` 文件，添加 `.vue` 文件的关联：  
 > ```json
