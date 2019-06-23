@@ -9,11 +9,13 @@
 ## 什么是webpack
 webpack是一个前端项目自动化构建工具，基于nodejs开发(需要安装nodejs环境)。借助webpack可以完美实现资源的合并、打包、压缩、混淆等诸多功能。
 
+> 本文档使用webpack的版本为 `4.x` 。
+
 ## 安装webpack的方式
 - 全局安装
-  - `npm install webpack -g`，这样可以全局使用webpack命令
+  - `npm install webpack webpack-cli -g`，这样可以全局使用webpack命令
 - 项目依赖
-  - `npm install webpack --save-dev`
+  - `npm install webpack webpack-cli --save-dev`
 
 ## 初步使用webpack
 1. `npm init -y` 初始化项目
@@ -79,5 +81,16 @@ module.exports = function (env) {
     mode: env && env.NODE_ENV === 'production' ? env.NODE_ENV : 'development',  // mode设置成env的NODE_ENV的值
     // ...
   }
+}
+
+// =====================================
+// 另一种写法：
+// 在外部获取 process.env.NODE_ENV，module.exports 直接返回对象，这样看起来更加清晰
+const isDevMode = process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'prod'
+
+module.exports = {
+  mode: isDevMode ? process.env.NODE_ENV : 'production'
+
+  // ...
 }
 ```

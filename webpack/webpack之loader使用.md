@@ -3,7 +3,7 @@
 - [使用webpack打包css文件](#使用webpack打包css文件)
   - [webpack处理less文件](#webpack处理less文件)
   - [webpack处理sass/scss文件](#webpack处理sassscss文件)
-- [webpack处理URL路径](#webpack处理url路径)
+- [webpack处理URL路径](#webpack处理URL路径)
   - [添加字体文件的匹配规则](#添加字体文件的匹配规则)
 - [webpack中配置babel7](#webpack中配置babel7)
 - [总结webpack处理非js文件的过程](#总结webpack处理非js文件的过程)
@@ -58,7 +58,9 @@ import './css/index.css'
    ```sh
    # sass-loader 依赖于 node-sass
    npm i sass-loader node-sass -D
-   ```
+   ```  
+   > `yarn` 可能安装不上 `node-sass`， 可以使用 `tyarn` 或者修改yarn配置。  
+   
 2. 配置匹配规则：
    ```js
    module: {
@@ -111,12 +113,22 @@ module: {
 ## webpack中配置babel7
 > 注意：babel版本为7.x。  
 
+> `@babel/polyfill` 和 `@babel/runtime` 区别：  
+> `@babel/polyfill` 用于模拟一个完整的ES2015+环境，会污染全局空间和内置对象原型，如添加 `Map，Array.prototype.find` 等；【适用于WEB应用程序而不是库/工具】  
+> `@babel/runtime` 是集中了polyfill的库，需要的模块可以手动引入来达到 `按需加载` （可以通过 @babel/transform-runtime 来自动引入）, 不污染全局空间，但是也不模拟实例方法（即内置对象原型方法），所以无法使用类似 `Array.prototype.find` 等实例方法。【适用于编写库/工具】  
+> 查看更多之 [polyfill、runtime、preset-env对比](https://juejin.im/post/5aefe0a6f265da0b9e64fa54)
+
 1. 安装loader：
    ```sh
    yarn add babel-loader @babel/core @babel/preset-env -D
    # 注意 @babel/polyfill是项目依赖
    yarn add @babel/polyfill
-   ```
+   ```  
+
+   > 注：
+   > 1. babel7 不再使用 `preset-stage-x` , 需要哪些新特性需要自己引入相应的plugin；  
+   > 2. `@babel/polyfill` 是项目依赖而不是开发依赖，设置 `@babel/preset-env` 的 `useBuiltIns` 为 `usage` 后，无需手动 `import @babel/polyfill` ，会自动按需导入。  
+
 2. 修改 `webpack.config.js` 配置文件：  
    ```js
    module: {
