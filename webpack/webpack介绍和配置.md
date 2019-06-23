@@ -5,6 +5,7 @@
 - [初步使用webpack](#初步使用webpack)
 - [使用webpack配置文件简化命令](#使用webpack配置文件简化命令)
   - [webpack4配置文件mode属性](#webpack4配置文件mode属性)
+  - [webpack配置sourcemap](#webpack配置sourcemap)
 
 ## 什么是webpack
 webpack是一个前端项目自动化构建工具，基于nodejs开发(需要安装nodejs环境)。借助webpack可以完美实现资源的合并、打包、压缩、混淆等诸多功能。
@@ -81,9 +82,27 @@ module.exports = function (env) {
   const isDevMode = env.NODE_ENV !== 'production' && env.NODE_ENV !== 'prod'
   return {
     mode: isDevMode ? env.NODE_ENV : 'production',
-    
+
     // ...
   }
 }
 
+```
+
+### webpack配置sourcemap
+`srouce map` 功能可以将打包编译后的代码映射回原始源代码，可以更容易地追踪错误和警告位置。  
+webpack配置文件中，通过 `devtool` 属性设置 source map：  
+```js
+// webpack.config.js
+
+module.exports = {
+  // ...
+
+  // devtool 默认为false，不开启source map，
+  // 开发环境可以设置为 inline-source-map, 
+  // 生产环境可以设置为 source-map（生成单独的 source map 文件）或者 false（即不使用source map）
+  devtool: isDevMode ? 'inline-source-map' : 'source-map'
+
+  // ...
+}
 ```
