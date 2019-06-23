@@ -77,20 +77,13 @@ webpack将会默认使用 `production` 模式【生产环境】，其它可选�
 ```js
 // 需要将 module.exports 改成函数
 module.exports = function (env) {
+  env = env || {}  // 如果没有传递任何--env参数，则env为undefined
+  const isDevMode = env.NODE_ENV !== 'production' && env.NODE_ENV !== 'prod'
   return {
-    mode: env && env.NODE_ENV === 'production' ? env.NODE_ENV : 'development',  // mode设置成env的NODE_ENV的值
+    mode: isDevMode ? env.NODE_ENV : 'production',
+    
     // ...
   }
 }
 
-// =====================================
-// 另一种写法：
-// 在外部获取 process.env.NODE_ENV，module.exports 直接返回对象，这样看起来更加清晰
-const isDevMode = process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'prod'
-
-module.exports = {
-  mode: isDevMode ? process.env.NODE_ENV : 'production'
-
-  // ...
-}
 ```
