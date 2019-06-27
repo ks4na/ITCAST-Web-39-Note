@@ -38,6 +38,7 @@
   - [贪吃蛇游戏开发总结](JavaScript高级/part2_贪吃蛇游戏总结.md)
   - [继承和函数进阶](JavaScript高级/part3_继承和函数进阶.md)
   - [正则表达式](JavaScript高级/part4_正则表达式.md)
+  - [严格模式](JavaScript高级/part5_严格模式.md)
 - Ajax、jQuery
   - [ajax](Ajax、jQuery/ajax.md)
   - [jQuery](Ajax、jQuery/jQuery.md)
