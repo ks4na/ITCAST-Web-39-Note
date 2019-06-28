@@ -36,6 +36,39 @@ import './css/index.css'
      // ...
    }
    ```
+> 补充：CSS模块化  
+
+```js
+{
+  test: /\.css$/,
+  use: [
+    'style-loader',
+    {
+      loader: 'css-loader',
+      options: {
+        modules: true  // 开启模块化
+      }
+    }
+  ]
+}
+```  
+最简单开启模块化的方式是直接设置 `modules: true`, 这样样式名会自动替换成hash类名，但是可读性太差，可以自定义类名生成方式：  
+```js
+options: {
+  modules: {
+    // mode: 'local',  // mode 默认为 'local' ，可以省略
+    localIdentName: '[name]__[local]_[hash:8]'  // 自定义类名生成方式： 文件名__样式名_hash:8
+  }
+}
+```  
+由于设置的是 `mode: 'local'`, 所有类名都会修改，如果不想修改，想定义全局类名，可以使用 `:global(类名){ }` 来定义样式。  
+
+```css
+:global(.title) {
+  color: red;
+}
+```  
+
 ### webpack处理less文件
 1. 安装loader:
    ```sh
