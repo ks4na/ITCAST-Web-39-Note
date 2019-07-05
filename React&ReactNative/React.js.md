@@ -224,5 +224,51 @@ class App extends React.Component {
    }
    ```  
 
+### 4.react生命周期
+React常用生命周期可以分为三个阶段：创建阶段、运行阶段和销毁阶段，每个阶段都有一些钩子函数。   
 
+#### 4.1React常用生命周期函数
+[React生命周期函数在线查看](http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)  
+
+![React常用生命周期函数](media/react常用生命周期函数.png)  
+
+创建阶段：  
+|  函数  | 说明 |  
+| -------- | -------- |  
+| constructor | 构造函数 |  
+| render | 渲染虚拟DOM |  
+| componentDidMount | 组件已经挂载到页面上后触发 |  
+
+> 注意：render函数只负责创建并返回虚拟DOM树，render完成之后React才更新DOM和refs。
+
+运行阶段：  
+| 函数 | 说明 |  
+| ---- | ---- |  
+| render | 渲染虚拟DOM |  
+| componentDidUpdate | 组件完成更新后触发 |  
+
+销毁阶段：  
+| 函数 | 说明 |  
+| ---- | --- |  
+| componentWillUnmount | 组件即将卸载 |  
+
+#### 4.2React全部生命周期函数
+![React全部生命周期函数](media/react全部生命周期函数.png)  
+
+除了常用生命周期函数，还有以下三个不常用的生命周期函数：  
+
+| 函数 | 说明 |  
+| --- | ---- |  
+| getDerivedStateFromProps | 创建阶段和运行阶段的生命周期函数，接收新props、更新state或调用forceUpdate()均会触发 |    
+| shouldComponentUpdate | 返回true/false指示是否需要更新组件 |  
+| getSnapshotBeforeUpdate | React更新DOM之前触发，可以用来存储一些更新前的DOM信息，而返回值会作为参数传递给 ComponentDidUpdate |  
+
+#### 4.3即将废弃的生命周期函数
+React17即将废除的生命周期函数有三个：
+
+| 函数 | 说明 |  
+| ---- | ---- |  
+| componentWillMount | 组件即将挂载 |  
+| componentWillReceiveProps | 组件即将接收新props，与 getDerivedStateFromPorps 的区别是该方法只会在运行阶段触发且不管props是否改变 |  
+| componentWillUpdate | 组件即将更新 |  
 
