@@ -171,7 +171,7 @@ class App extends React.Component {
    import './style.css'
 
    function Hello(){
-     return <h1 className=".title">Hello React.js</h1>
+     return <h1 className="title">Hello React.js</h1>
    }
    ```  
    这样引入单独样式文件存在的问题：类名是全局的，  
@@ -216,7 +216,7 @@ class App extends React.Component {
    效果如图：  
    ![模块化自定义类名生成方式](media/模块化自定义类名生成方式.png)  
 
-   开启模块化之后，由于 mode 设置为了 `'local'`，所以样式都默认修改类名，如果想要定义全局样式，不想样式名被修改，使用 `:global(样式名)` 来定义：  
+   开启模块化之后，由于 `modules.mode` 默认设置为了 `'local'`，所以样式都默认修改类名，如果想要定义全局样式，不想样式名被修改，使用 `:global(样式名)` 来定义：  
 
    ```css
    :global(.title) {
@@ -224,7 +224,7 @@ class App extends React.Component {
    }
    ```  
 
-### 4.react生命周期
+### 4.React生命周期
 React常用生命周期可以分为三个阶段：创建阶段、运行阶段和销毁阶段，每个阶段都有一些钩子函数。   
 
 #### 4.1React常用生命周期函数
@@ -235,22 +235,22 @@ React常用生命周期可以分为三个阶段：创建阶段、运行阶段和
 创建阶段：  
 |  函数  | 说明 |  
 | -------- | -------- |  
-| constructor | 构造函数 |  
-| render | 渲染虚拟DOM |  
-| componentDidMount | 组件已经挂载到页面上后触发 |  
+| constructor(props) | 构造函数 |  
+| render() | 渲染虚拟DOM |  
+| componentDidMount() | 组件已经挂载到页面上后触发 |  
 
 > 注意：render函数只负责创建并返回虚拟DOM树，render完成之后React才更新DOM和refs。
 
 运行阶段：  
 | 函数 | 说明 |  
 | ---- | ---- |  
-| render | 渲染虚拟DOM |  
-| componentDidUpdate | 组件完成更新后触发 |  
+| render() | 渲染虚拟DOM |  
+| componentDidUpdate(prevProps, prevState) | 组件完成更新后触发 |  
 
 销毁阶段：  
 | 函数 | 说明 |  
 | ---- | --- |  
-| componentWillUnmount | 组件即将卸载 |  
+| componentWillUnmount() | 组件即将卸载 |  
 
 #### 4.2React全部生命周期函数
 ![React全部生命周期函数](media/react全部生命周期函数.png)  
@@ -259,16 +259,234 @@ React常用生命周期可以分为三个阶段：创建阶段、运行阶段和
 
 | 函数 | 说明 |  
 | --- | ---- |  
-| getDerivedStateFromProps | 创建阶段和运行阶段的生命周期函数，接收新props、更新state或调用forceUpdate()均会触发 |    
-| shouldComponentUpdate | 返回true/false指示是否需要更新组件 |  
-| getSnapshotBeforeUpdate | React更新DOM之前触发，可以用来存储一些更新前的DOM信息，而返回值会作为参数传递给 ComponentDidUpdate |  
+| static getDerivedStateFromProps(props, state) | **静态方法**，创建阶段和运行阶段的生命周期函数，接收新props、更新state或调用forceUpdate()均会触发 |    
+| shouldComponentUpdate(nextProps, nextState) | 返回true/false指示是否需要更新组件 |  
+| getSnapshotBeforeUpdate(prevProps, prevState) | React更新DOM之前触发，可以用来存储一些更新前的DOM信息，而返回值会作为参数传递给 ComponentDidUpdate |  
 
 #### 4.3即将废弃的生命周期函数
 React17即将废除的生命周期函数有三个：
 
 | 函数 | 说明 |  
 | ---- | ---- |  
-| componentWillMount | 组件即将挂载 |  
-| componentWillReceiveProps | 组件即将接收新props，与 getDerivedStateFromPorps 的区别是该方法只会在运行阶段触发且不管props是否改变 |  
-| componentWillUpdate | 组件即将更新 |  
+| componentWillMount() | 组件即将挂载 |  
+| componentWillReceiveProps(nextProps) | 组件即将接收新props，与 getDerivedStateFromPorps 的区别是该方法只会在运行阶段触发且不管props是否改变 |  
+| componentWillUpdate(nextProps, nextState) | 组件即将更新 |  
 
+#### 4.4使用defaultProps设置默认属性值
+React中组件设置默认属性值，对于组件的封装很方便。  
+设置默认值的方式是定义静态属性 `defaultProps` ，可以使用ES7的写法，在类的内部定义：  
+
+```jsx
+class Count extends React.Component {
+
+  static defaultProps = {
+    count: 0
+  }
+}
+```   
+
+但是这么写，需要添加了 `@babel/plugin-proposal-class-properties` 这个插件，如果没有添加，可以像下面这样定义在类的外部：  
+
+```jsx
+class Count extends React.Component {
+
+  render(){
+    return <div>Count: {this.props.count}</div>
+  }
+}
+
+Count.defaultProps = {
+  count: 0
+}
+```  
+
+#### 4.5使用prop-types对传入属性进行类型校验
+组件封装之后，对传入的属性值进行类型限定，对于非预期类型的属性进行控制台提示，这样对于使用者来说是很友好的。  
+添加属性的类型校验，需要安装 `prop-types` 包。  
+> `prop-types` 这个包在 `React 15.5` 之前是没有从React中分离出来的。  
+
+1. 安装 `prop-types` 包
+   ```sh
+   yarn add prop-types
+   ```  
+2. 引入包并定义属性类型
+   ```jsx
+   import PropTypes from 'prop-types'
+
+   class Count extends React.Component {
+     render (){
+       return <div>count: {this.props.count}</div>
+     }
+   }
+
+   Count.propTypes = {
+     count: PropTypes.number
+   }
+   ```  
+   或者ES7写法：  
+   ```jsx
+   class Count extends React.Component {
+     static propTypes = {
+       count: PropTypes.number
+     }
+   }
+   ```  
+上面代码限定了count属性为number类型，如果不是number类型，将会在控制台打印错误提示：  
+![prop-types error](media/proptypeserror.png)  
+
+### 5.React中绑定this和传参的方式
+#### 5.1bind(this)
+1. 构造函数中bind(this)  
+   ```jsx
+   class Count extends Component{
+     constructor(){
+       super()
+       this.handleClick = this.handleClick.bind(this)
+     }
+
+     handleClick(){
+       // ...
+     }
+
+     render(){
+       return (
+         <button onClick={this.handleClick}>btn</button>
+       )
+     }
+   }
+   ```  
+2. 指定处理函数时bind(this)  
+   ```jsx
+   class Count extends Component{
+     handleClick(){
+       // ...
+     }
+
+     render (){
+       return (
+          <button onClick={this.handleClick.bind(this)}>btn</button>
+       )
+     }
+   }
+   ```  
+#### 5.2箭头函数捕获上下文中的this
+1. 指定处理函数时使用箭头函数  
+   ```jsx
+   class Count extends Component {
+     handleClick(){
+       // ...
+     }
+
+     render (){
+       return (
+         <button onClick={() => { this.handleClick() }}>btn</button>
+       )
+     }
+   }
+   ```  
+2. 定义方法时使用箭头函数(ES7写法，需要 `@babel/plugin-proposal-class-properties`)
+   ```jsx
+   class Count extends Component{
+     handleClick = () => {
+       // ...
+     }
+
+     render (){
+       return (
+         <button onClick={this.handleClick}>btn</button>
+       )
+     }
+   }
+   ```  
+   只使用ES6语法，可以在构造函数中使用箭头函数定义：  
+   ```jsx
+   class Count extends Component {
+     constructor(){
+       super()
+       this.handleClick = () => {
+         // ...
+       }
+     }
+
+     render(){
+       return (
+         <button onClick={this.handleClick}>btn</button>
+       )
+     }
+   }
+   ```  
+
+#### 5.3事件传参的方式
+1. 使用bind()传参  
+   ```jsx
+   class Count extends Component {
+     handleClick(arg, e){
+       // ...
+     }
+
+     render (){
+       return (
+         <button onClick={ this.handleClick.bind(this, 'argVal') }>btn</button>
+       )
+     }
+   }
+   ```
+2. 使用箭头函数传参  
+   ```jsx
+   class Count extends Component{
+
+     handleClick(e, arg){
+       // ...
+     }
+
+     render(){
+       return (
+         <button onClick={ e => { this.handleClick(e, 'argVal') } }>btn</button>
+       )
+     }
+   }
+   ```
+> 注意： 两种传参方式中的事件对象的传递方式是不一样的。  
+
+### 6.React中的context特性
+在多层嵌套的组件中，为了避免属性的逐层传递，可以使用 `context特性` 不经过子组件的传递直接从孙子组件获取父组件的属性。  
+使用方法：  
+1. 父组件定义 `getChildContext()`方法，返回需要设置为 `context` 的属性，并且通过静态属性 `childContextTypes` 规定context属性的类型：  
+   ```jsx
+   import React, { Component } from 'react'
+   import PropTypes from 'prop-types'
+   
+   class Parent extends Component{
+
+     // 定义需要设置为 context 的属性
+     getChildContext(){
+       return {
+         msg: 'msg from parent'
+       }
+     }
+   }
+
+   // 规定context属性的类型
+   Parent.childContextTypes = {
+     msg: PropTypes.string
+   }
+
+   ```  
+2. 子孙组件通过静态属性 `contextTypes` 声明需要获取的 `context` 属性的类型，然后使用 `this.context.属性名` 即可获取到该属性的值：  
+   ```jsx
+   import React, { Component } from 'react'
+   import PropTypes from 'prop-types'
+   
+   class Son extends Component {
+     
+     render(){
+       return (
+         <div>context.msg: {this.context.msg} </div>
+       )
+     }
+   }
+
+   Son.contextTypes = {
+     msg: PropTypes.string
+   }
+   ```
