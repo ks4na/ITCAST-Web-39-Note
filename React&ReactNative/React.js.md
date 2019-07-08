@@ -261,6 +261,7 @@ React常用生命周期可以分为三个阶段：创建阶段、运行阶段和
 ![React常用生命周期函数](media/react常用生命周期函数.png)  
 
 创建阶段：  
+
 |  函数  | 说明 |  
 | -------- | -------- |  
 | constructor(props) | 构造函数 |  
@@ -270,12 +271,14 @@ React常用生命周期可以分为三个阶段：创建阶段、运行阶段和
 > 注意：render函数只负责创建并返回虚拟DOM树，render完成之后React才更新DOM和refs。
 
 运行阶段：  
+
 | 函数 | 说明 |  
 | ---- | ---- |  
 | render() | 渲染虚拟DOM |  
 | componentDidUpdate(prevProps, prevState) | 组件完成更新后触发 |  
 
 销毁阶段：  
+
 | 函数 | 说明 |  
 | ---- | --- |  
 | componentWillUnmount() | 组件即将卸载 |  
@@ -397,6 +400,7 @@ Count.defaultProps = {
      }
    }
    ```  
+   
 #### 5.2箭头函数捕获上下文中的this
 1. 指定处理函数时使用箭头函数  
    ```jsx
