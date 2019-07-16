@@ -316,7 +316,8 @@ use: {
     },
    ```  
    > 如果需要将css文件抽取到指定目录(如：输出到 dist/css 文件夹下)，可以通过 `filename` 和 `publicPath` 参数来配置：  
-   ```js
+
+   ```js   
    plugins: [
      new MiniCssExtractPlugin({
        //filename: '[hash:8]-[name].css',
@@ -324,7 +325,6 @@ use: {
        chunkFilename: '[id].css',
      }),
    ],
-
 
    // .css
     {
