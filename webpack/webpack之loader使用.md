@@ -143,6 +143,8 @@ module: {
 }
 ```
 
+> 解决字体文件和图片文件后缀冲突（如SVG文件可能为图片也可能为字体），此时可以为字体文件匹配规则添加选项 `exclude: /src\\imgs/`, 为图片文件匹配规则添加选项 `exclude: /src\\fonts/`。  
+
 ## webpack中配置babel7
 > 注意：babel版本为7.x。  
 
