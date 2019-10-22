@@ -251,7 +251,9 @@ class App extends React.Component {
      color: lightgreen;
    }
    ```  
-
+   
+   > 开启模块化之后，自定义类名的话，会影响到引用的库中的样式，解决方法是在webpack的rule中配置两个css/scss文件规则，分别添加上 `include: /node_modules/` 和 `exclude: /node_modules/`。  
+   
 ### 4.React生命周期
 React常用生命周期可以分为三个阶段：创建阶段、运行阶段和销毁阶段，每个阶段都有一些钩子函数。   
 
