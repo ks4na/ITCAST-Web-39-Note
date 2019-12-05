@@ -241,7 +241,7 @@ output: {
 ```js
 // main.js
 
-import(/* webpackChunkName: "lodash" */, 'lodash').then(/* ... */)
+import(/* webpackChunkName: "lodash" */ 'lodash').then(/* ... */)
 ```  
 
 #### 4.source map
