@@ -59,7 +59,7 @@ module.exports = {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js'
   },
-  devtool: 'inline-source-map',
+  devtool: 'cheap-module-eval-source-map',
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
@@ -86,18 +86,20 @@ module.exports = {
           options: {
             name: '[name]_[hash:8].[ext]'
           }
-        }
+        },
+        exclude: /src\\imgs/  // 排除src/imgs目录
       },
       // imgs
       {
-        test: /\.(gif|png|jpg|jpeg|bmp)$/,
+        test: /\.(gif|png|jpg|jpeg|bmp|svg)$/,
         use: {
           loader: 'url-loader',
           options: {
             limit: 5120,
             name: '[name]__[hash:8].[ext]'
           }
-        }
+        },
+        exclude: /src\\fonts/  // 排除src/fonts目录
       },
       // es6+
       {
