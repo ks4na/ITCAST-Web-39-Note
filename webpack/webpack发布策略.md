@@ -36,14 +36,15 @@
 1. 方法一：直接在 `url-loader` （或 `file-loader`） 的 `name` 属性中指定文件夹  
     ```js
     {
-      test: /\.(gif|jpg|jpeg|bmp|png)$/,
+      test: /\.(gif|jpg|jpeg|bmp|png|svg)$/,
       use: {
         loader: 'url-loader',
         options: {
           limit: 10240,  // >=10k不转码
           name: 'images/[hash:8]-[name].[ext]'  // 直接在前面添加文件夹路径即可
         }
-      }
+      },
+      exclude: /src\\fonts/
     }
     ```
    > 这种方法最简单直接，但是丢失了图片原始的相对src目录的路径。
@@ -54,7 +55,7 @@
    - `[path]`: 源文件相对于`context` 的路径；
    ```js
    {
-     test: /\.(jpg|jpeg|bmp|gif|png)$/,
+     test: /\.(jpg|jpeg|bmp|gif|png|svg)$/,
      use: {
        loader: 'url-loader',
        options: {
@@ -63,34 +64,40 @@
          name: '[path][hash:8]-[name].[ext]'  // 相对context（这里为src目录）的路径 + hash:8-name.ext【有相对路径之后hash值可以省略】
          // 这样指定context和name之后，src目录中的图片会保留相对于src目录的路径输出到dist目录， 如src/imgs中的图片会输出到dist/imgs中。
        }
-     }
+     },
+     exclude: /src\\fonts/
    }
    ```  
-   字体文件可能会来自 `node_modules` 中的库（如Bootstrap中的字体文件），并且有时对于字体文件的处理中检测的 `svg` 后缀名会错误地包含了svg图片，此时可以通过 `outputPath` 来修正：  
+   字体文件可能会来自 `node_modules` 中的库（如Bootstrap中的字体文件），~~并且有时对于字体文件的处理中检测的 `svg` 后缀名会错误地包含了svg图片~~ (可以通过为`font loader`和`url-loader`配置`exclude`属性来排除特定`fonts`、`imgs`文件夹，参考上面下面的`file-loader`和`url-loader`的配置) ，此时可以通过 `outputPath` 来修正：  
    ```js
    {
      test: /\.(ttf|eot|woff|woff2|svg)$/,
      use: {
        loader: 'file-loader',
        options: {
-         context: 'src',
-         name: '[hash:8]-[name].[ext]',
-         outputPath: (url, resourcePath, context){
-           // `url` 是经过name格式处理之后的文件名
-           // `resourcePath` 是源文件的绝对路径
-           // `context` 是 context的绝对路径
+         /*
+            fix： 知道了exclude属性之后，就可以不像下面那样麻烦了，直接使用name指定目录
+         */
+         name: 'fonts/[hash:8]-[name].[ext]'
 
-           // 如果源文件绝对路径中包含了 node_modules ，则直接输出到 fonts目录
-           if(/node_modules/.test(resourcePath)){
-             return `fonts/${url}`
-           }
-           // 默认返回文件相对src目录的路径, **这样之后imgs目录下的svg图片就不会输出到fonts目录下了**
-           const relativePath = path.relative(context, resourcePath)
-           const relativeDir = path.dirname(relativePath)
-           return `${relativeDir}/${url}`
-         }
+         // context: 'src',
+         // name: '[hash:8]-[name].[ext]',
+         // outputPath: (url, resourcePath, context){
+         //   // `url` 是经过name格式处理之后的文件名
+         //   // `resourcePath` 是源文件的绝对路径
+         //   // `context` 是 context的绝对路径
+         //   // 如果源文件绝对路径中包含了 node_modules ，则直接输出到 fonts目录
+         //   if(/node_modules/.test(resourcePath)){
+         //     return `fonts/${url}`
+         //   }
+         //   // 默认返回文件相对src目录的路径, **这样之后imgs目录下的svg图片就不会输出到fonts目录下了**
+         //   const relativePath = path.relative(context, resourcePath)
+         //   const relativeDir = path.dirname(relativePath)
+         //   return `${relativeDir}/${url}`
+         // }
        }
-     }
+     },
+     exclude: /src\\imgs/
    }
    ```
 
@@ -144,7 +151,7 @@ webpack4之后分离第三方包使用 [optimization.splitChunks](https://webpac
 module.exports = {
   output: {
     // ...
-    chunkFilename: '[name].bundle.js'  // 注意添加上这一项，原因见上面介绍
+    chunkFilename: '[name].bundle.js'  // 注意添加上这一项，原因见下面第3点介绍
   },
   optimization: {
     splitChunks: {
@@ -161,7 +168,7 @@ module.exports = {
 module.exports = {
   output: {
     // ...
-    chunkFilename: '[name].bundle.js'  // 注意添加上这一项，原因见上面介绍
+    chunkFilename: '[name].bundle.js'  // 注意添加上这一项，原因见下面第3点介绍
   },
   optimization: {
     splitChunks: {
