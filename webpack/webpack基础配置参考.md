@@ -179,7 +179,7 @@ module.exports = {
       },
       // imgs
       {
-        test: /\.(jpg|jpeg|bmp|gif|png)$/,
+        test: /\.(jpg|jpeg|bmp|gif|png|svg)$/,
         use: {
           loader: 'url-loader',
           options: {
@@ -187,7 +187,8 @@ module.exports = {
             context: 'src',
             name: '[path][name]__[hash:8].[ext]'
           }
-        }
+        },
+        exclude: /src\\fonts/
       },
       // fonts
       {
@@ -195,18 +196,20 @@ module.exports = {
         use: {
           loader: 'file-loader',
           options: {
-            context: 'src',
-            outputPath: (url, resourcePath, context) => {
-              if (/node_modules/.test(resourcePath)) {
-                return `fonts/${url}`
-              }
-              const relativePath = path.relative(context, resourcePath)
-              const relativeDir = path.dirname(relativePath)
-              return `${relativeDir}/${url}`
-            },
-            name: '[name]__[hash:8].[ext]'
+            // context: 'src',
+            // outputPath: (url, resourcePath, context) => {
+            //   if (/node_modules/.test(resourcePath)) {
+            //     return `fonts/${url}`
+            //   }
+            //   const relativePath = path.relative(context, resourcePath)
+            //   const relativeDir = path.dirname(relativePath)
+            //   return `${relativeDir}/${url}`
+            // },
+            // name: '[name]__[hash:8].[ext]'
+            name: 'fonts/[name]__[hash:8].[ext]'
           }
-        }
+        },
+        exclude: /src\\imgs/
       },
       // es 6+
       {
