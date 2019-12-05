@@ -1,17 +1,19 @@
 # webpack发布策略
 
-- [编写webpack发布策略的配置文件](#编写webpack发布策略的配置文件)
-- [打包图片、字体文件到指定文件夹](#打包图片字体文件到指定文件夹)
-- [清理dist文件夹](#清理dist文件夹)
-- [分离第三方包到单独文件](#分离第三方包到单独文件)
-  - [分离第三方包常用写法](#分离第三方包常用写法)
-  - [补充](#补充)
-    - [1.bundle分析插件](#1bundle分析插件)
-    - [2.将js文件输出到js文件夹](#2将js文件输出到js文件夹)
-    - [3.import()动态导入与output.chunkFilename的关系](#3import动态导入与outputchunkFilename的关系)
-- [html文件压缩](#html文件压缩)
-- [提取CSS到单独文件](#提取CSS到单独文件)
-  - [CSS文件压缩](#CSS文件压缩)
+- [webpack发布策略](#webpack%e5%8f%91%e5%b8%83%e7%ad%96%e7%95%a5)
+  - [编写webpack发布策略的配置文件](#%e7%bc%96%e5%86%99webpack%e5%8f%91%e5%b8%83%e7%ad%96%e7%95%a5%e7%9a%84%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6)
+  - [打包图片、字体文件到指定文件夹](#%e6%89%93%e5%8c%85%e5%9b%be%e7%89%87%e5%ad%97%e4%bd%93%e6%96%87%e4%bb%b6%e5%88%b0%e6%8c%87%e5%ae%9a%e6%96%87%e4%bb%b6%e5%a4%b9)
+  - [清理dist文件夹](#%e6%b8%85%e7%90%86dist%e6%96%87%e4%bb%b6%e5%a4%b9)
+  - [分离第三方包到单独文件](#%e5%88%86%e7%a6%bb%e7%ac%ac%e4%b8%89%e6%96%b9%e5%8c%85%e5%88%b0%e5%8d%95%e7%8b%ac%e6%96%87%e4%bb%b6)
+    - [分离第三方包常用写法](#%e5%88%86%e7%a6%bb%e7%ac%ac%e4%b8%89%e6%96%b9%e5%8c%85%e5%b8%b8%e7%94%a8%e5%86%99%e6%b3%95)
+    - [补充](#%e8%a1%a5%e5%85%85)
+      - [1.bundle分析插件](#1bundle%e5%88%86%e6%9e%90%e6%8f%92%e4%bb%b6)
+      - [2.将js文件输出到js文件夹](#2%e5%b0%86js%e6%96%87%e4%bb%b6%e8%be%93%e5%87%ba%e5%88%b0js%e6%96%87%e4%bb%b6%e5%a4%b9)
+      - [3.import()动态导入与output.chunkFilename的关系](#3import%e5%8a%a8%e6%80%81%e5%af%bc%e5%85%a5%e4%b8%8eoutputchunkfilename%e7%9a%84%e5%85%b3%e7%b3%bb)
+      - [4.source map](#4source-map)
+  - [html文件压缩](#html%e6%96%87%e4%bb%b6%e5%8e%8b%e7%bc%a9)
+  - [提取CSS到单独文件](#%e6%8f%90%e5%8f%96css%e5%88%b0%e5%8d%95%e7%8b%ac%e6%96%87%e4%bb%b6)
+    - [CSS文件压缩](#css%e6%96%87%e4%bb%b6%e5%8e%8b%e7%bc%a9)
   
 ## 编写webpack发布策略的配置文件
 可以指定两份webpack的配置文件，一份用于开发环境（`webpack.prod.js`），一份用于生产环境（`webpack.dev.js`）。  
@@ -240,6 +242,17 @@ output: {
 
 import(/* webpackChunkName: "lodash" */, 'lodash').then(/* ... */)
 ```  
+
+#### 4.source map
+> `source map` 不应该被部署到web服务器，而只是用于错误报告工具。  
+
+生产环境的 `source map` 配置可以选择:  
+
+```js
+devtool: 'source-map' // 或者 false，不生成 source map
+```  
+
+详细请参考 [webpack介绍和配置](./webpack介绍和配置.md) 章节。  
 
 ## html文件压缩
 1. 添加 `html-loader` ：

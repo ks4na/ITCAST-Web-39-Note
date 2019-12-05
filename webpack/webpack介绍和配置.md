@@ -91,6 +91,9 @@ module.exports = function (env) {
 
 ### webpack配置sourcemap
 `srouce map` 功能可以将打包编译后的代码映射回原始源代码，可以更容易地追踪错误和警告位置。  
+
+> **不应该**将 sourcemap 文件部署到web服务器，而是只将其用于错误报告工具。  
+
 webpack配置文件中，通过 `devtool` 属性设置 source map：  
 ```js
 // webpack.config.js
@@ -99,10 +102,12 @@ module.exports = {
   // ...
 
   // devtool 默认为false，不开启source map，
-  // 开发环境可以设置为 inline-source-map, 
+  // 开发环境非常适合的sourcemap选项： cheap-module-eval-source-map, 
   // 生产环境可以设置为 source-map（生成单独的 source map 文件）或者 false（即不使用source map）
-  devtool: isDevMode ? 'inline-source-map' : 'source-map'
+  devtool: isDevMode ? 'cheap-module-eval-source-map' : 'source-map'
 
   // ...
 }
-```
+```  
+
+> 更详细的关于 `sourcemap` 的选择和品质说明，参考 [webpack官网devtool章节](https://webpack.docschina.org/configuration/devtool)
