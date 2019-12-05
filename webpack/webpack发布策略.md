@@ -130,8 +130,9 @@ module.exports = {
 webpack4之后分离第三方包使用 [optimization.splitChunks](https://webpack.docschina.org/plugins/split-chunks-plugin/) 代替 `CommonsChunkPlugin`。  
 `splitChunks` [默认配置](https://webpack.docschina.org/plugins/split-chunks-plugin/#optimization-splitchunks), 重点配置项如下：
 - chunks: 指示哪些代码需要优化
-  - 默认为 `async`, 只对按需加载（即使用[import()语法](https://blog.csdn.net/ixygj197875/article/details/79263912)而不是静态import）的模块进行分离；
-  - 可以设置为 `initial` 或 `all` 来对所有代码进行优化，二者区别：`all` 模式下不会分开打包异步和非异步模块,而 `initial` 模式下会分开优化打包异步和非异步模块；
+  - 默认为 `async`：只对按需加载（即使用[import()语法](https://blog.csdn.net/ixygj197875/article/details/79263912)而不是静态import）的模块进行优化（将该模块本身的代码和其中引入的库模块分离）；
+  - `initial`: 只针对程序入口文件进行优化（将入口文件本身代码和引入的库模块代码分离）
+  - `all`: 以上两者都进行优化  
 - cacheGroups: 自定义配置打包块，会继承/覆盖splitChunks的相应属性
   - 示例写法：  
     ```js  
@@ -157,7 +158,7 @@ module.exports = {
   },
   optimization: {
     splitChunks: {
-      chunks: 'all',  // 直接设置 chunks 属性为 'all'/'initial'，splitChunks的默认配置会生成第三方包到单独 vendors~main.bundle.js 中
+      chunks: 'all',  // 直接设置 chunks 属性为 'all'/'initial'，splitChunks的默认配置会生成第三方包到单独 vendors~main.bundle.js 中，动态加载的模块也会到单独的文件中
     }
   }
   
