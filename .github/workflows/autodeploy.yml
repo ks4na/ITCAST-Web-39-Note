@@ -1,0 +1,40 @@
+name: Auto Deploy
+
+on: 
+  push:
+    branches: 
+      - master
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+      
+    - name: Init nodejs env
+      uses: actions/setup-node@v1
+      with:
+        node-version: '10'
+
+    - name: Init gitbook env
+      run: |
+        npm install gitbook-cli -g
+        gitbook install
+        gitbook build
+      
+    - name: Deploy to server
+      id: deploy
+      uses: Pendect/action-rsyncer@v1.1.0
+      env:
+        DEPLOY_KEY: ${{secrets.tencentcloud_DEPLOY_KEY}}
+      with:
+        flags: '-avzr --delete'
+        options: ''
+        ssh_options: ''
+        src: '_book/'
+        dest: 'yuusha@49.235.176.149:./gitbook-repo/ITCAST-WEB-39-NOTE'
+
+    - name: Display status from deploy
+      run: echo "${{ steps.deploy.outputs.status }}"
