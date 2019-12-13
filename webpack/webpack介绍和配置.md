@@ -110,7 +110,14 @@ module.exports = function(env) {
 
 `srouce map` 功能可以将打包编译后的代码映射回原始源代码，可以更容易地追踪错误和警告位置。
 
-> **不应该**将 sourcemap 文件部署到 web 服务器，而是只将其用于错误报告工具。
+> **不应该**将 sourcemap 文件部署到 web 服务器，而是只将其用于错误报告工具。  
+> 可以通过配置 `nginx` 禁止访问 `.map` 文件：
+>
+> ```sh
+> location ~* \.(map)$ {
+>     deny all;
+> }
+> ```
 
 webpack 配置文件中，通过 `devtool` 属性设置 source map：
 
