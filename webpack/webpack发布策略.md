@@ -46,7 +46,7 @@
           name: 'images/[hash:8]-[name].[ext]'  // 直接在前面添加文件夹路径即可
         }
       },
-      exclude: /src\\fonts/
+      exclude: /src[\\/]fonts/
     }
     ```
    > 这种方法最简单直接，但是丢失了图片原始的相对src目录的路径。
@@ -67,7 +67,7 @@
          // 这样指定context和name之后，src目录中的图片会保留相对于src目录的路径输出到dist目录， 如src/imgs中的图片会输出到dist/imgs中。
        }
      },
-     exclude: /src\\fonts/
+     exclude: /src[\\/]fonts/
    }
    ```  
    字体文件可能会来自 `node_modules` 中的库（如Bootstrap中的字体文件），~~并且有时对于字体文件的处理中检测的 `svg` 后缀名会错误地包含了svg图片~~ (可以通过为`font loader`和`url-loader`配置`exclude`属性来排除特定`fonts`、`imgs`文件夹，参考上面下面的`file-loader`和`url-loader`的配置) ，此时可以通过 `outputPath` 来修正：  
@@ -99,7 +99,7 @@
          // }
        }
      },
-     exclude: /src\\imgs/
+     exclude: /src[\\/]imgs/
    }
    ```
 
