@@ -7,8 +7,6 @@
   - [H5 新 API](html5/H5新API.md)
 
 * [css3]()
-  - [css 随记]()
-    - [div 高度随百分比宽度而调整](css3/css随记/div-auto-height.md)
   - [css3 基础 - part1](css3/css_part1.md)
   - [css3 基础 - part2](css3/css_part2.md)
   - [css3 基础 - part3](css3/css_part3.md)
@@ -17,6 +15,8 @@
   - [css3 - BFC](css3/css_BFC.md)
   - [css - PS 基本操作](css3/css_ps基本操作.md)
   - [css - 补充知识](css3/css_补充知识.md)
+  - [css 随记]()
+    - [div 高度随百分比宽度而调整](css3/css随记/div-auto-height.md)
 * 京东首页练习
   - [京东项目笔记](jd_note/jd_note.md)
 * javascript
@@ -30,6 +30,8 @@
   - [内置对象](javascript/8.内置对象.md)
   - [数组对象](javascript/9.数组对象.md)
   - [字符串常用方法](javascript/10.字符串常用方法.md)
+  - [js 随记]()
+    - [js 判断字符串是否为数字](javascript/js随记/js判断字符串是否为数字.md)
 * Web API
   - [简单介绍](WebAPI/WebAPI_part1.md)
   - [事件详解](WebAPI/WebAPI_part2_事件详解.md)
