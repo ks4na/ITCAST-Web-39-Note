@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flex Layout Demo</title>
+    <style>
+      h2,
+      h3 {
+        padding-top: 30px;
+        margin-top: -30px;
+      }
+      nav {
+        font-size: 14px;
+        border: 1px solid grey;
+        border-radius: 5px;
+        padding: 10px;
+        background-color: lightgray;
+        margin-bottom: 20px;
+      }
+      nav p {
+        margin: 0;
+      }
+      .container {
+        max-width: 500px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Flex Layout Demo</h1>
+    <nav>
+      <p>Content</p>
+      <ol>
+        <li>
+          <div class="nav-item-wrapper">
+            <p><a href="#flexContainer">Flex Container</a></p>
+            <ol>
+              <li><a href="#flexDirection">flex-direction</a></li>
+              <li><a href="#flexWrap">flex-wrapper</a></li>
+              <li><a href="#flexFlow">flex-flow</a></li>
+              <li><a href="#justifyContent">justify-content</a></li>
+              <li><a href="#alignItems">align-items</a></li>
+              <li><a href="#alignContent">align-content</a></li>
+            </ol>
+          </div>
+        </li>
+        <li>
+          <div class="nav-item-wrapper">
+            <p><a href="#flexItem">Flex Item</a></p>
+            <ol>
+              <li><a href="#order">order</a></li>
+              <li><a href="#flexBasis">flex-basis</a></li>
+              <li><a href="#flexGrow">flex-grow</a></li>
+              <li><a href="#flexShrink">flex-shrink</a></li>
+              <li><a href="#flex">flex</a></li>
+              <li><a href="#alignSelf">align-self</a></li>
+            </ol>
+          </div>
+        </li>
+      </ol>
+    </nav>
+    <section id="flexContainer">
+      <h2>
+        Flex Container
+      </h2>
+      <!-- flex-direction start -->
+      <section id="flexDirection">
+        <h3>flex-direction</h3>
+        <div class="operation">
+          <select name="flexDirectionSelect" id="flexDirectionSelect">
+            <option selected value="row">row</option>
+            <option value="row-reverse">row-reverse</option>
+            <option value="column">column</option>
+            <option value="column-reverse">column-reverse</option>
+          </select>
+        </div>
+        <div class="container">
+          <div class="item">1</div>
+          <div class="item">2</div>
+          <div class="item">3</div>
+        </div>
+        <style>
+          #flexDirection .container {
+            margin: 10px 0;
+            display: flex;
+
+            background-color: grey;
+          }
+
+          #flexDirection .container > .item {
+            width: 40px;
+            height: 40px;
+            background-color: orange;
+            margin: 10px;
+            text-align: center;
+            line-height: 40px;
+          }
+        </style>
+        <script>
+          const flexDirectionContainer = document
+            .querySelector('#flexDirection')
+            .querySelector('.container')
+          const flexDirectionSelect = document.querySelector(
+            '#flexDirectionSelect'
+          )
+          flexDirectionSelect.onchange = function (e) {
+            flexDirectionContainer &&
+              (flexDirectionContainer.style.flexDirection = e.target.value)
+          }
+        </script>
+      </section>
+      <!-- flex-direction end -->
+      <!-- flex-wrap start -->
+      <section id="flexWrap">
+        <h3>flex-wrap</h3>
+        <div class="operation">
+          <select name="flexWrapSelect" id="flexWrapSelect">
+            <option selected value="nowrap">nowrap</option>
+            <option value="wrap">wrap</option>
+            <option value="wrap-reverse">wrap-reverse</option>
+          </select>
+        </div>
+        <div class="container">
+          <div class="item">1</div>
+          <div class="item">2</div>
+          <div class="item">3</div>
+          <div class="item">4</div>
+          <div class="item">5</div>
+        </div>
+        <style>
+          #flexWrap .container {
+            margin: 10px 0;
+            display: flex;
+
+            background-color: grey;
+          }
+
+          #flexWrap .container > .item {
+            width: 120px;
+            height: 120px;
+            background-color: orange;
+            margin: 10px;
+            text-align: center;
+            line-height: 120px;
+          }
+        </style>
+        <script>
+          const flexWrapperContainer = document
+            .querySelector('#flexWrap')
+            .querySelector('.container')
+          const flexWrapSelect = document.querySelector('#flexWrapSelect')
+          flexWrapSelect.onchange = function (e) {
+            flexWrapperContainer &&
+              (flexWrapperContainer.style.flexWrap = e.target.value)
+          }
+        </script>
+      </section>
+      <!-- flex-wrap end -->
+      <!-- flex-flow start -->
+      <section id="flexFlow">
+        <h3>flex-flow</h3>
+        <p>flex-direction 和 flex-wrap 的合并写法， 示例略</p>
+      </section>
+      <!-- flex-flow end -->
+      <!-- justify-content start -->
+      <section id="justifyContent">
+        <h3>justify-content</h3>
+        <div class="operation">
+          <select name="justifyContentSelect" id="justifyContentSelect">
+            <option selected value="flex-start">flex-start</option>
+            <option value="center">center</option>
+            <option value="flex-end">flex-end</option>
+            <option value="space-between">space-between</option>
+            <option value="space-around">space-around</option>
+          </select>
+        </div>
+        <div class="container">
+          <div class="item">1</div>
+          <div class="item">2</div>
+          <div class="item">3</div>
+        </div>
+        <style>
+          #justifyContent .container {
+            margin: 10px 0;
+            display: flex;
+
+            background-color: grey;
+          }
+
+          #justifyContent .container > .item {
+            width: 40px;
+            height: 40px;
+            background-color: orange;
+            margin: 10px;
+            text-align: center;
+            line-height: 40px;
+          }
+        </style>
+        <script>
+          const justifyContentContainer = document
+            .querySelector('#justifyContent')
+            .querySelector('.container')
+          const justifyContentSelect = document.querySelector(
+            '#justifyContentSelect'
+          )
+          justifyContentSelect.onchange = function (e) {
+            justifyContentContainer &&
+              (justifyContentContainer.style.justifyContent = e.target.value)
+          }
+        </script>
+      </section>
+      <!-- justify-content end -->
+      <!-- align-items start -->
+      <section id="alignItems">
+        <h3>align-items</h3>
+        <div class="operation">
+          <select name="alignItemsSelect" id="alignItemsSelect">
+            <option value="stretch" selected>stretch</option>
+            <option value="flex-start">flex-start</option>
+            <option value="center">center</option>
+            <option value="flex-end">flex-end</option>
+            <option value="baseline">baseline</option>
+          </select>
+        </div>
+        <div class="container">
+          <div class="item">1</div>
+          <div class="item">2</div>
+          <div class="item">3</div>
+        </div>
+        <style>
+          #alignItems .container {
+            margin: 10px 0;
+            display: flex;
+            height: 200px;
+            background-color: grey;
+          }
+
+          #alignItems .container > .item {
+            width: 80px;
+            background-color: orange;
+            margin: 10px;
+            text-align: center;
+            line-height: 20px;
+            padding: 30px 0;
+            font-size: 16px;
+          }
+        </style>
+        <script>
+          const alignItemsContainer = document
+            .querySelector('#alignItems')
+            .querySelector('.container')
+          const alignItemsItems = alignItemsContainer.querySelectorAll('.item')
+          const alignItemsSelect = document.querySelector('#alignItemsSelect')
+
+          const handleAlignItemsSelectChange = function (e) {
+            const value = (e && e.target.value) || 'stretch'
+
+            alignItemsItems.forEach((item, index) => {
+              item.style.fontSize = '16px'
+              item.style.height = '40px'
+              item.style.lineHeight = item.style.height
+              item.innerHTML = index + 1
+
+              if (value === 'stretch') {
+                item.style.height = 'auto'
+                item.innerHTML = `height: auto`
+              }
+
+              if (value === 'baseline') {
+                item.style.fontSize = `${16 + index * 4}px`
+                item.style.height = `${40 + index * 20}px`
+                item.innerHTML = `h:${40 + index * 20}px`
+                item.style.lineHeight = item.style.height
+              }
+            })
+
+            alignItemsContainer.style.alignItems = value
+          }
+
+          alignItemsSelect.onchange = handleAlignItemsSelectChange
+
+          // 立即触发
+          handleAlignItemsSelectChange()
+        </script>
+      </section>
+      <!-- align-items end -->
+      <!-- align-content start -->
+      <section id="alignContent">
+        <h3>align-content</h3>
+        <div class="operation">
+          <select name="alignContentSelect" id="alignContentSelect">
+            <option selected value="stretch">stretch</option>
+            <option value="flex-start">flex-start</option>
+            <option value="center">center</option>
+            <option value="flex-end">flex-end</option>
+            <option value="space-between">space-between</option>
+            <option value="space-around">space-around</option>
+          </select>
+        </div>
+        <div class="container">
+          <div class="item">1</div>
+          <div class="item">2</div>
+          <div class="item">3</div>
+          <div class="item">4</div>
+          <div class="item">5</div>
+          <div class="item">6</div>
+          <div class="item">7</div>
+          <div class="item">8</div>
+          <div class="item">9</div>
+        </div>
+        <style>
+          #alignContent .container {
+            margin: 10px 0;
+            display: flex;
+
+            background-color: grey;
+            flex-wrap: wrap;
+            height: 500px;
+          }
+
+          #alignContent .container > .item {
+            width: 80px;
+            background-color: orange;
+            margin: 10px;
+            text-align: center;
+            line-height: 20px;
+            padding: 30px 0;
+          }
+        </style>
+        <script>
+          const alignContentContainer = document
+            .querySelector('#alignContent')
+            .querySelector('.container')
+          const alignContentItems = alignContentContainer.querySelectorAll(
+            '.item'
+          )
+          const alignContentSelect = document.querySelector(
+            '#alignContentSelect'
+          )
+
+          const handleAlignContentSelectChange = function (e) {
+            const value = (e && e.target.value) || 'stretch'
+
+            alignContentItems.forEach((item, index) => {
+              item.style.height = '40px'
+              item.innerHTML = index + 1
+
+              if (value === 'stretch') {
+                item.style.height = `auto`
+                item.innerHTML = `height: auto`
+              }
+            })
+
+            alignContentContainer.style.alignContent = value
+          }
+
+          alignContentSelect.onchange = handleAlignContentSelectChange
+
+          // 立即触发 change 事件
+          handleAlignContentSelectChange()
+        </script>
+      </section>
+      <!-- align-content end -->
+    </section>
+
+    <section id="flexItem">
+      <h2>Flex Item</h2>
+      <!-- order start -->
+      <section id="order">
+        <h3>order</h3>
+        <div class="container">
+          <div class="item">1</div>
+          <div class="item">2</div>
+          <div class="item">3</div>
+        </div>
+        <style>
+          #order .container {
+            display: flex;
+
+            background-color: grey;
+            margin: 10px 0;
+          }
+          #order .container > .item {
+            width: 80px;
+            height: 80px;
+            margin: 10px;
+            background-color: orange;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        </style>
+        <script>
+          const orderContainer = document
+            .querySelector('#order')
+            .querySelector('.container')
+          const orderItems = orderContainer.querySelectorAll('.item')
+          const len = orderItems.length
+
+          orderItems.forEach((item, index) => {
+            const order = (index + 1) % len
+
+            item.style.order = order
+            item.innerHTML += `<br/>order: ${order}`
+          })
+        </script>
+      </section>
+      <!-- order end -->
+      <!-- flex-basis start -->
+      <section id="flexBasis">
+        <h3>flex-basis</h3>
+        <div class="operation">
+          <select name="flexBasisSelect" id="flexBasisSelect">
+            <option selected value=""></option>
+            <option value="auto">auto</option>
+            <option value="10%">10%</option>
+            <option value="70px">70px</option>
+          </select>
+        </div>
+        <div class="container">
+          <div class="item">1</div>
+          <div class="item">2</div>
+          <div class="item">3</div>
+        </div>
+        <style>
+          #flexBasis .container {
+            display: flex;
+
+            background-color: grey;
+            margin: 10px 0;
+          }
+          #flexBasis .container > .item {
+            height: 80px;
+            margin: 10px;
+            background-color: orange;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        </style>
+        <script>
+          const flexBasisContainer = document
+            .querySelector('#flexBasis')
+            .querySelector('.container')
+          const flexBasisItems = flexBasisContainer.querySelectorAll('.item')
+          const flexBasisSelect = document.querySelector('#flexBasisSelect')
+
+          flexBasisSelect.onchange = function (e) {
+            flexBasisItems.forEach((item, index) => {
+              item.style.flexBasis = e.target.value
+              item.innerHTML = e.target.value || index + 1
+            })
+          }
+        </script>
+      </section>
+      <!-- flex-basis end -->
+      <!-- flex-grow start -->
+      <section id="flexGrow">
+        <h3>flex-grow</h3>
+        <div class="operation">
+          <span>第二个flex item 的 flex-grow 值：</span>
+          <input type="number" id="flexGrowInput" step="1" />
+        </div>
+        <div class="container">
+          <div class="item">1</div>
+          <div class="item">2</div>
+          <div class="item">3</div>
+        </div>
+        <style>
+          #flexGrow .container {
+            display: flex;
+
+            background-color: grey;
+            margin: 10px 0;
+          }
+          #flexGrow .container > .item {
+            width: 30px;
+            height: 30px;
+            margin: 10px;
+            background-color: orange;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          #flexGrow .container > .item:first-of-type {
+            flex-grow: 1;
+          }
+        </style>
+        <script>
+          const flexGrowContainer = document
+            .querySelector('#flexGrow')
+            .querySelector('.container')
+          const flexGrowItems = flexGrowContainer.querySelectorAll('.item')
+          const flexGrowInput = document.querySelector('#flexGrowInput')
+
+          flexGrowInput.onchange = function (e) {
+            flexGrowItems[1].style.flexGrow = e.target.value
+          }
+        </script>
+      </section>
+      <!-- flex-grow end -->
+      <!-- flex-shrink start -->
+      <section id="flexShrink">
+        <h3>flex-shrink</h3>
+        <div class="operation">
+          <span>第二个flex item 的 flex-shrink 值：</span>
+          <input
+            type="number"
+            id="flexShrinkInput"
+            step="1"
+            value="1"
+            min="0"
+          />
+        </div>
+        <div class="container">
+          <div class="item">
+            <p>1</p>
+            <p>flex-shrink: 0</p>
+          </div>
+          <div class="item"><p>2</p></div>
+          <div class="item">
+            <p>3</p>
+            <p>flex-shrink: 1</p>
+          </div>
+        </div>
+        <style>
+          #flexShrink .container {
+            display: flex;
+
+            background-color: grey;
+            margin: 10px 0;
+          }
+          #flexShrink .container > .item {
+            flex-basis: 33%;
+            margin: 10px;
+            background-color: orange;
+          }
+          #flexShrink .container > .item:first-of-type {
+            flex-shrink: 0;
+          }
+        </style>
+        <script>
+          const flexShrinkContainer = document
+            .querySelector('#flexShrink')
+            .querySelector('.container')
+          const flexShrinkItems = flexShrinkContainer.querySelectorAll('.item')
+          const flexShrinkInput = document.querySelector('#flexShrinkInput')
+
+          flexShrinkInput.onchange = function (e) {
+            flexShrinkItems[1].style.flexShrink = e.target.value
+          }
+        </script>
+      </section>
+      <!-- flex-shrink end -->
+      <!-- flex start -->
+      <section id="flex">
+        <h3>flex</h3>
+        <p>flex-grow、 flex-shrink 和 flex-basis 的合并写法， 示例略</p>
+      </section>
+      <!-- flex end -->
+      <!-- align-self start -->
+      <section id="alignSelf">
+        <h3>align-self</h3>
+        <div class="operation">
+          <span>flex容器 align-items 值: stretch </span><br />
+          <span>第二个flex item 的 align-self 值：center</span>
+        </div>
+        <div class="container">
+          <div class="item">1</div>
+          <div class="item">2</div>
+          <div class="item">3</div>
+        </div>
+        <style>
+          #alignSelf .container {
+            display: flex;
+            background-color: grey;
+            margin: 10px 0;
+            align-items: stretch;
+            height: 200px;
+          }
+          #alignSelf .container > .item {
+            flex-basis: 20%;
+            margin: 10px;
+            background-color: orange;
+          }
+          #alignSelf .container > .item:nth-of-type(2) {
+            align-self: center;
+          }
+        </style>
+      </section>
+      <!-- align-self end -->
+    </section>
+  </body>
+</html>

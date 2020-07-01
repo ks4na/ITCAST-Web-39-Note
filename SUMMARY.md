@@ -5,6 +5,8 @@
   - [Markdown 语法复习](./html5/Markdown语法遗忘点.md)
   - [html5](./html5/html5.md)
   - [H5 新 API](html5/H5新API.md)
+  - [H5 随记]()
+    - [flex 布局](html5/h5随记/flex布局.md)
 
 * [css3]()
   - [css3 基础 - part1](css3/css_part1.md)
