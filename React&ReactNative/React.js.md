@@ -1,32 +1,32 @@
 # React.js
 
-- [React起源](#React起源)
-- [React核心概念](#React核心概念)
-  - [虚拟DOM（Virtual Document Object Model）](#虚拟DOMVirtual-Document-Object-Model)
-    - [为什么需要虚拟DOM](#为什么需要虚拟DOM)
-    - [虚拟DOM的本质和作用](#虚拟DOM的本质和作用)
-  - [Diff算法](#Diff算法)
-- [React的使用](#React的使用)
+- [React起源](#react起源)
+- [React核心概念](#react核心概念)
+  - [虚拟DOM（Virtual Document Object Model）](#虚拟domvirtual-document-object-model)
+    - [为什么需要虚拟DOM](#为什么需要虚拟dom)
+    - [虚拟DOM的本质和作用](#虚拟dom的本质和作用)
+  - [Diff算法](#diff算法)
+- [React的使用](#react的使用)
   - [1.基本使用](#1基本使用)
-  - [2.JSX语法](#2JSX语法)
-    - [安装JSX语法转换工具](#安装JSX语法转换工具)
-    - [JSX基本语法](#JSX基本语法)
-  - [3.React组件](#3React组件)
+  - [2.JSX语法](#2jsx语法)
+    - [安装JSX语法转换工具](#安装jsx语法转换工具)
+    - [JSX基本语法](#jsx基本语法)
+  - [3.React组件](#3react组件)
   - [3.1组件传值及获取](#31组件传值及获取)
   - [3.2class定义组件](#32class定义组件)
   - [3.3有状态组件和无状态组件](#33有状态组件和无状态组件)
   - [3.4组件中样式的书写](#34组件中样式的书写)
-  - [4.React生命周期](#4React生命周期)
-    - [4.1React常用生命周期函数](#41React常用生命周期函数)
-    - [4.2React全部生命周期函数](#42React全部生命周期函数)
+  - [4.React生命周期](#4react生命周期)
+    - [4.1React常用生命周期函数](#41react常用生命周期函数)
+    - [4.2React全部生命周期函数](#42react全部生命周期函数)
     - [4.3即将废弃的生命周期函数](#43即将废弃的生命周期函数)
-    - [4.4使用defaultProps设置默认属性值](#44使用defaultProps设置默认属性值)
+    - [4.4使用defaultProps设置默认属性值](#44使用defaultprops设置默认属性值)
     - [4.5使用prop-types对传入属性进行类型校验](#45使用prop-types对传入属性进行类型校验)
-  - [5.React中绑定this和传参的方式](#5React中绑定this和传参的方式)
+  - [5.React中绑定this和传参的方式](#5react中绑定this和传参的方式)
     - [5.1bind(this)](#51bindthis)
     - [5.2箭头函数捕获上下文中的this](#52箭头函数捕获上下文中的this)
     - [5.3事件传参的方式](#53事件传参的方式)
-  - [6.React中的context特性](#6React中的context特性)
+  - [6.React中的context特性](#6react中的context特性)
 
 ## React起源
 起源于Facebook内部项目，起初用于架设Instagram网站，**2013年5月开源**。  
@@ -483,7 +483,14 @@ Count.defaultProps = {
 > 注意： 两种传参方式中的事件对象的传递方式是不一样的。  
 
 ### 6.React中的context特性
+
 在多层嵌套的组件中，为了避免属性的逐层传递，可以使用 `context特性` 不经过子组件的传递直接从孙子组件获取父组件的属性。  
+
+> 过时警告  
+> 
+> 这种方式的 Context 写法已经过时，不要再这样使用，  
+> 另外，使用 React 严格模式  `<React.StrictMode>` 时可以自动检测该类型的问题。
+
 使用方法：  
 1. 父组件定义 `getChildContext()`方法，返回需要设置为 `context` 的属性，并且通过静态属性 `childContextTypes` 规定context属性的类型：  
    ```jsx
