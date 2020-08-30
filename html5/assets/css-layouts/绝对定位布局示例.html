@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>绝对定位布局示例</title>
+    <!-- 通用样式 -->
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .container {
+        position: relative;
+      }
+      .main {
+        margin: 0 200px;
+        height: 100px;
+      }
+      .left,
+      .right {
+        width: 200px;
+        position: absolute;
+        top: 0;
+      }
+      .left {
+        left: 0;
+      }
+      .right {
+        right: 0;
+      }
+      /* hover 后改变高度 */
+      .left:hover,
+      .right:hover {
+        height: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>Header</header>
+    <div class="container">
+      <section class="main">
+        Main
+        <div class="disadvantages" style="color: #ccc">
+          Left 和 Right 区域高度大于 Main 时无法撑开 container<br />
+          <small>鼠标悬停在 Left/Right 区域查看效果</small>
+        </div>
+      </section>
+      <aside class="left">Left</aside>
+      <aside class="right">Right</aside>
+    </div>
+    <footer>Footer</footer>
+  </body>
+</html>

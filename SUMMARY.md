@@ -7,6 +7,7 @@
   - [H5 新 API](html5/H5新API.md)
   - [H5 随记]()
     - [flex 布局](html5/h5随记/flex布局.md)
+    - [css 布局之绝对定位、圣杯、双飞翼](html5/h5随记/css布局之绝对定位布局、圣杯、双飞翼.md)
 
 * [css3]()
   - [css3 基础 - part1](css3/css_part1.md)

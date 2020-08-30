@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>双飞翼布局示例</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .container {
+        overflow: hidden;
+      }
+      .main,
+      .left,
+      .right {
+        float: left;
+      }
+      .main {
+        width: 100%;
+      }
+      .left {
+        margin-left: -100%;
+        width: 200px;
+      }
+      .right {
+        margin-left: -200px;
+        width: 200px;
+      }
+      .main-body {
+        margin: 0 200px;
+      }
+      /* hover 后改变高度 */
+      .left:hover,
+      .right:hover {
+        height: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>Header</header>
+    <div class="container">
+      <section class="main">
+        <section class="main-body">
+          Main
+          <p>
+            双飞翼布局针对圣杯布局的缺点进行了改进<br />
+            重点： 不再使用 `position: relative;` 来定位侧边栏，而是在 Main
+            中再添加一个 div，同时将 container 的 padding 改为设置该 div 的
+            margin<br />
+            同时 container 也能适应侧边栏的高度
+          </p>
+        </section>
+      </section>
+      <aside class="left">Left</aside>
+      <aside class="right">Right</aside>
+    </div>
+    <footer>Footer</footer>
+  </body>
+</html>

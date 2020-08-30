@@ -1,0 +1,30 @@
+/* common style start */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.clearfix::before,
+.clearfix::after {
+  content: '';
+  display: table;
+}
+.clearfix::after {
+  clear: both;
+}
+
+header,
+footer {
+  height: 50px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.main {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.left,
+.right {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+/* common style end */
